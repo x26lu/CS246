@@ -24,6 +24,7 @@ void Floor::readMap(string filename){
 		{
 			for (int i = 0; i < 25; i++)
 			{
+				//TODO: check for numbers that represent items and modify them
 				if (!(file >> map[j][i]))
 				{
 					std::cerr << "error while reading file";
