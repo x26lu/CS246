@@ -8,4 +8,4 @@ class Character : Location {
 	void setAtk(int newAtk){atk=newAtk;}
 	void setDef(int newDef){def=newDef;}
 	void setGold(int newGold){gold=newGold;}
-}
+}//test
