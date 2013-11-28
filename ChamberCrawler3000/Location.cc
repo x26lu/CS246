@@ -1,17 +1,19 @@
-class Location {
+
+class Location{
+	protected:
 	int x;
 	int y;
-	char symbol;
 	public:
-	Location(int r, int c, char sym){
+	Location(int r,int c){
 		x=r;
 		y=c;
-		symbol=sym;
 	}
-	getSymbol(){
-		return symbol;
+	Location(){
+		x=-1;
+		y=-1;
 	}
-	setSymbol(char newSymbol){
-		symbol=newSymbol;
+	Location operator=(Location &b){
+		x=b.x;
+		y=b.y;
 	}
-}
+};

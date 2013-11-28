@@ -1,27 +1,22 @@
-class Item :Location{
-
-
+#include <string>
+#include "location.cc"
+class Item{
+	protected:
+	Location loc;
+	char symbol;
+	
 	public:
-	Item(string type){
-		if(type=="gold"){
-			symbol='G';
-		}else{
-			symbol="P"
-		}
+	Item(Location loca, char sym){
+		loc=loca;
+		symbol=sym;
 	}
-	void setType(string type){
-		if(type=="gold"){
-			symbol='G';
-		}else{
-			symbol="P"
-		}
+	char getSymbol(){
+		return symbol;
 	}
-	string getType(){
-		if(symbol=='G'){
-			return "gold";
-		}else {
-			return "potion"
-		}
-		
+	Location getLocation(){
+		return loc;
 	}
-}
+	//virtual std::string getType()=0;
+	
+
+};
