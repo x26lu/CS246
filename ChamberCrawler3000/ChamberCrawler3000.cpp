@@ -2,7 +2,6 @@
 //
 
 #include <iostream>
-#include "stdafx.h"
 #include "floor.h"
 
 const char PlayerSymbol = 0x01;    // ASCII Man

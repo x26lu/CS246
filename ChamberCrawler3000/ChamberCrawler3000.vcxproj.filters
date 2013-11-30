@@ -18,16 +18,10 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="stdafx.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="targetver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Floor.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Chamber.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ChamberCrawler3000.h">
@@ -35,13 +29,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="stdafx.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="ChamberCrawler3000.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Cell.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Character.cc">
@@ -59,16 +47,10 @@
     <ClCompile Include="Item.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Location.cc">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Player.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Potion.cc">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Chamber.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
