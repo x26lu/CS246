@@ -5,16 +5,11 @@
 #include "stdafx.h"
 #include "floor.h"
 
-char PlayerSymbol = 0x01;    // ASCII Man
-char DuckASCII = 0x44;    // ASCII Duck
-char VerticalWallSymbol = 0xBA;    // Vertical wall piece
-char HorizontalWallSymbol = 0xCD;    // Horizontal wall piece
-char TopRightCornerSymbol = 0xBB;    // Top right wall piece
-char TopLeftCornerSymbol = 0xC9;    // Top left wall piece
-char BotLeftCornerSymbol = 0xC8;    // Bottom right wall piece
-char BotRightCornerSymbol = 0xBC;    // Bottom left wall piece
-char FloorTileSymbol = 0x2E;    // Floor tile 
-
+const char PlayerSymbol = 0x01;    // ASCII Man
+const char VerticalWallSymbol = 0xBA;    // Vertical wall piece
+const char HorizontalWallSymbol = 0xCD;    // Horizontal wall piece
+const char FloorTileSymbol = 0x2E;    // Floor tile 
+const char WarewolfSymbol = NULL;    // ASCII Warewolf
 
 using namespace std;
 
