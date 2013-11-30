@@ -1,24 +1,38 @@
 #include <string.h>
 #include <math.h>
-#include "location.cc"
+
 class Character{
 	protected:
 	int hp;
 	int atk;
 	int def;
 	int gold;
-	Location loc;
+	int x;
+	int y;
 	char symbol;
 	public:
-	Character(int h, int a, int d, int g, Location l,char sym){
+	Character(){
+		hp=0;
+		atk=0;
+		def=0;
+		gold=0;
+		x=0;
+		y=0;
+		symbol='0';
+	}
+	Character(int h, int a, int d, int g, int r,int c,char sym){
 		hp=h;
 		atk=a;
 		def=d;
 		gold=g;
-		loc = l;
+		x=r;
+		y=c;
 		symbol=sym;
 	}
-	Location getLocation(){return loc;}
+	void setX(int r){x=r;}
+	void setY(int c){y=c;}
+	int getX(){return x;}
+	int getY(){return y;}
 	void setHp(int newHp){hp=newHp;}
 	void setAtk(int newAtk){atk=newAtk;}
 	void setDef(int newDef){def=newDef;}

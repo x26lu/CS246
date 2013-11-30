@@ -10,7 +10,8 @@ class Player: public Character{
 	int atkmodify;
 	int defmodify;
 	public:
-	Player(std::string rac,Location loc){
+	Player():Character(){}
+	Player(std::string rac,int x , int y){
 		race=rac;
 		floor=1;
 		atkmodfiy=0;
@@ -23,9 +24,10 @@ class Player: public Character{
 		}else if (race=="elves"){
 	
 		}else{
-			Character(140,20,20,0,loc,'@');
+			Character(140,20,20,0,x,y,'@');
 		}
 	}
+
 	void nextFloor(){
 		floor++;
 		atk-=atkmodify;
