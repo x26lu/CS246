@@ -1,17 +1,9 @@
-#include "character.cc"
-#include <string>
+#include "Enemy.h"
 
-class Enemy : public Character{
 
-	protected:	
-	static int hostile;
-	std::string race;
-	
-	public:
-	Enemy():Character(){
-	
+	Enemy::Enemy():Character(){	
 	}
-	Enemy(std::string races,int x ,int y){
+	Enemy::Enemy(std::string races,int x ,int y){
 		if(races="vampire"){
 			Character(50,25,25,1,x,y,'V');
 		}else if(races=="werewolf"){
@@ -29,16 +21,10 @@ class Enemy : public Character{
 			Character(120,25,15,1,x,y'T');
 		}
 	}
-	void beHostile(){
+	void Enemy::beHostile(){
 		hostile=1;
 	}
-	bool isHostile(){
+	bool Enemy::isHostile(){
 		return hostile==1;
 	}
-	Enemy(int h, int a , int d , int g, int r , int c ,char sym):Character(h,a,d,g,r,c,sym){}
-	std::string getRace(){
-		return race;
-	}
 
-
-};

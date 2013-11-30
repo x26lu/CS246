@@ -1,16 +1,11 @@
-#include "item.cc"
-#include <stdlib.h>
+#include "Character.h"
 
-class Potion : public Item{
-	std::string type;
-	public:
-	Potion():Item(){}
-	Potion(std::string pot, Location loca):Item(loca,'P'){
-		loc=loca;
+
+	Potion::Potion():Item(){}
+	Potion::Potion(int x, int y,std::string pot):Item(0,0'P'){
 		type=pot;
 	}
-	std::string getType(){
+	std::string Potion::getType(){
 		return type;
 	}
 
-};

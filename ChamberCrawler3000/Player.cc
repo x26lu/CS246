@@ -1,17 +1,9 @@
-#include "character.cc"
-#include <string>
-#include "potion.cc"
+#include "Player.h"
 
-class Player: public Character{
-	protected:
-	std::string race;
-	int floor;
-	int maxhp;
-	int atkmodify;
-	int defmodify;
-	public:
-	Player():Character(){}
-	Player(std::string rac,int x , int y){
+
+
+	Player::Player():Character(){}
+	Player::Player(std::string rac,int x , int y){
 		race=rac;
 		floor=1;
 		atkmodfiy=0;
@@ -28,14 +20,14 @@ class Player: public Character{
 		}
 	}
 
-	void nextFloor(){
+	void Player::nextFloor(){
 		floor++;
 		atk-=atkmodify;
 		atkmodify=0;
 		def-=defmodify;
 		defmodify=0;
 	}
-	void usePotion(Potion pot){
+	void Player::usePotion(Potion pot){
 		if(pot.getType()=="RH"){
 			hp+=10;
 			if(hp>maxhp){ hp=maxHp;}
@@ -56,5 +48,5 @@ class Player: public Character{
 			def+=defmodify;
 		}
 	}
-};
+
 
