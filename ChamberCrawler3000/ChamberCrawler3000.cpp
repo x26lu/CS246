@@ -4,12 +4,6 @@
 #include <iostream>
 #include "floor.h"
 
-const char PlayerSymbol = 0x01;    // ASCII Man
-const char VerticalWallSymbol = 0xBA;    // Vertical wall piece
-const char HorizontalWallSymbol = 0xCD;    // Horizontal wall piece
-const char FloorTileSymbol = 0x2E;    // Floor tile 
-const char WarewolfSymbol = NULL;    // ASCII Warewolf
-
 using namespace std;
 
 void printScreen(Floor *floor){

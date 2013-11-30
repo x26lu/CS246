@@ -4,21 +4,31 @@
 #include <ctime>
 #include "Floor.h"
 
-int Floor::getIndex(int x, int y){
-	return width * y + x;
-}
+const char SymbolPlayer = '@';
+const char SymbolVerticalWall = '|';
+const char SymbolHorizontalWall = '-';
+const char SymbolDoorway = '+';
+const char SymbolFloorTile = '.';
+const char SymbolPassage = '#';
+const char SymbolStair = '\\';
+const char SymbolGold = 'G';
+const char SymbolPotion = 'P';
+const char SymbolWarewolf = NULL;
 
-int Floor::getX(int index){
-	return index % width;
-}
+int Floor::getIndex(int x, int y){ return width * y + x; }
 
-int Floor::getY(int index){
-	return index / width;
-}
+int Floor::getX(int index){ return index % width; }
+
+int Floor::getY(int index){ return index / width; }
 
 int Floor::getRand(int range, int start = 0){
 	srand(time(NULL));
 	return rand() % range + start;
+}
+
+bool Floor::isMoveable(int x, int y){
+	char tmp = map[getIndex(x, y)];
+	if (tmp == VerticalWallSymbol | )
 }
 
 void Floor::init(){
@@ -137,6 +147,11 @@ char Floor::getCharAt(int x, int y){
 }
 
 void Floor::draw(int x, int y, char newChar){
+	if (x<0 || x > getWidth())
+		return;
+	if (y<0 || y > getHeight())
+		return;
+
 	int index = getIndex(x, y);
 	map[index] = newChar;
 }
@@ -178,6 +193,11 @@ void Floor::move(int oldX, int oldY, int newX, int newY){
 }
 
 int* Floor::getRadius(int x, int y){
+
+}
+
+int Floor::getUnoccupiedRadius(int x, int y){
+	getRand(9);
 
 }
 

@@ -16,6 +16,7 @@ class Floor
 	int getIndex(int x, int y);
 	int getX(int index);
 	int getY(int index);
+	bool isMoveable(int x, int y);	//check if a location is moveable
 	//We require that generation happens in the following order: player character location, stairway location, potions, gold, enemies.
 	void init();	//init at the beginning of floor
 	void readMap(std::string filename);	//readin map from file
