@@ -24,7 +24,6 @@ class Floor
 	void generateGolds(int goldNum = 10);	//generate 10 random golds
 	void generateEnemies(int enemyNum = 20);	//generate 20 random enemies (dragon according to golds)
 public:
-	//constructor will call readMap and spawn which calls 3 generate functions
 	Floor(int nFloorNum, string filename, int nWidth = 79, int nHight = 25);
 	void draw(int x, int y, char newChar);	//draw char at given location
 	void longDraw(int nX, int nY, const char* newChars);	//draw multiple chars at given location

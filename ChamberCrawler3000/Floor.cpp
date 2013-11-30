@@ -110,6 +110,7 @@ Floor::Floor(int nFloorNum, string filename, int nWidth = 79, int nHight = 25) :
 floorNum(nFloorNum), width(nWidth), height(nHight)
 {
 	readMap(filename);
+	init();
 }
 
 void Floor::draw(int x, int y, char newChar){
