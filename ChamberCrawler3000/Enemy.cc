@@ -2,29 +2,15 @@
 #include <string>
 
 class Enemy : public Character{
+
+	protected:	
+	std::string race;
 	
-	string race="";
-
 	public:
-	Enemy(string races, int r, int c){
-		int x=r;
-		int y=c;
-		race = races;
-		symbol='E';
-		gold=1;
-		if(race=="vampire"){
-
-		}else if(race=="werewolf"){
-
-		}else if(race=="troll"){
-
-		}else if(race=="goblin"){
-
-		}else if(race==""){
-
-		}else{
-		
-		}
+	Enemy(int h,int a,int d,int g,Location l,char sym):Character(h,a,d,g,l,sym){}
+	std::string getRace(){
+		return race;
 	}
+
 
 };
