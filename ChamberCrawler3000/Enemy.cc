@@ -7,7 +7,10 @@ class Enemy : public Character{
 	std::string race;
 	
 	public:
-	Enemy(int h,int a,int d,int g,Location l,char sym):Character(h,a,d,g,l,sym){}
+	Enemy():Character(){
+	
+	}
+	Enemy(int h, int a , int d , int g, int r , int c ,char sym):Character(h,a,d,g,r,c,sym){}
 	std::string getRace(){
 		return race;
 	}

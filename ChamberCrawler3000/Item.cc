@@ -2,11 +2,17 @@
 #include "location.cc"
 class Item{
 	protected:
-	Location loc;
+	int x;
+	int y;
 	char symbol;
 	
 	public:
-	Item(Location loca, char sym){
+	Item(){
+		x=0;
+		y=0;
+		symbol='0';
+	}
+	Item(int x,int y, char sym){
 		loc=loca;
 		symbol=sym;
 	}
