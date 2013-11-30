@@ -27,8 +27,9 @@ public:
 	Floor(int nFloorNum, string filename, int nWidth = 79, int nHight = 25);
 	void draw(int x, int y, char newChar);	//draw char at given location
 	void longDraw(int nX, int nY, const char* newChars);	//draw multiple chars at given location
-	void release(Location location);	//turn symbol at target location back to default
-	Location* getRadius(Location currentLocation);
-	Location getUnoccupiedLocation(Location currentLocation);
+	void release(int x, int y);	//turn symbol at target location back to default
+	void move(int oldX, int oldY, int newX, int newY);	//move from old location to new location
+	int* getRadius(int x, int y);	//get indexes of available locations in 1 radius of current location
+	int getUnoccupiedRadius(int x, int y);		//get one random unoccupied location in 1 radius
 	~Floor();
 };

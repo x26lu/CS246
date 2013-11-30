@@ -119,10 +119,18 @@ void Floor::draw(int x, int y, char newChar){
 }
 
 void Floor::longDraw(int nX, int nY, const char* newChars){
+	//TODO: not sure if needed, leave out for now.
+}
+
+void Floor::release(int x, int y){
+	int index = getIndex(x, y);
 
 }
 
-Location* Floor::getRadius(Location currentLocation){
+void Floor::move(int oldX, int oldY, int newX, int newY){
+}
+
+int* Floor::getRadius(int x, int y){
 
 }
 
