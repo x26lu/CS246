@@ -17,6 +17,8 @@ class Floor
 
 	int getRand(int range, int start = 0);
 	int getIndex(int x, int y);
+	int getX(int index);
+	int getY(int index);
 	//We require that generation happens in the following order: player character location, stairway location, potions, gold, enemies.
 	void init();	//init at the beginning of floor
 	void readMap(string filename);	//readin map from file
@@ -25,6 +27,9 @@ class Floor
 	void generateEnemies(int enemyNum = 20);	//generate 20 random enemies (dragon according to golds)
 public:
 	Floor(int nFloorNum, string filename, int nWidth = 79, int nHight = 25);
+	int getWidth();
+	int getHeight();
+	char getCharAt(int x, int y);	//return the symbol at (x,y)
 	void draw(int x, int y, char newChar);	//draw char at given location
 	void longDraw(int nX, int nY, const char* newChars);	//draw multiple chars at given location
 	void release(int x, int y);	//turn symbol at target location back to default
