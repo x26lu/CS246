@@ -80,7 +80,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ChamberCrawler3000.h" />
+    <ClInclude Include="Character.h" />
+    <ClInclude Include="Enemy.h" />
     <ClInclude Include="Floor.h" />
+    <ClInclude Include="Gold.h" />
+    <ClInclude Include="Item.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="Potion.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>

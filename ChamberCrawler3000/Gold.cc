@@ -1,14 +1,11 @@
-#include "item.cc"
-#include <string>
-class Gold: public Item{
-	protected:
-	std::string value;
-	public:
-	Gold():Item(){}
-	Gold(std::string type,Location loca):Item(loca,'G'){
+#include "Gold.h"
+
+
+	Gold::Gold():Item(){}
+	Gold::Gold(int x , int y,std::string type):Item(x,y,'G'){
 		value=type;
 	}
-	int getGold(){
+	int Gold::getGold(){
 		if(value=="normal"){
 			return 1;
 		}else if(value=="smallHorde"){
@@ -19,10 +16,10 @@ class Gold: public Item{
 			return 4;
 		}
 	}
-	void setLocation(Location locat){
+	void Gold::setLocation(Location locat){
 		loc=locat;
 	}
-	std::string getType(){
+	std::string Gold::getType(){
 		return value;
 	}
 };
