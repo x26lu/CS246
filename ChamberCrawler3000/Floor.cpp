@@ -2,9 +2,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
-#include "stdafx.h"
 #include "Floor.h"
-using namespace std;
 
 int Floor::getIndex(int x, int y){
 	return width * y + x;
@@ -20,7 +18,7 @@ int Floor::getY(int index){
 
 int Floor::getRand(int range, int start = 0){
 	srand(time(NULL));
-	rand() % range + start;
+	return rand() % range + start;
 }
 
 void Floor::init(){
@@ -30,12 +28,12 @@ void Floor::init(){
 
 }
 
-void Floor::readMap(string filename){
-	ifstream file;
+void Floor::readMap(std::string filename){
+	std::ifstream file;
 	file.open(filename.c_str());
 
 	if (file.fail()){
-		cerr << "Cannot open map file" << endl;
+		std::cerr << "Cannot open map file" << std::endl;
 	}
 	else{
 		for (int j = 0; j < width; j++)
@@ -97,7 +95,7 @@ void Floor::generateEnemies(int enemyNum = 20){
 			//TODO: set x and y in initializer
 			Enemy *tmpEnemy = new Enemy("dragon");
 			enemies[dragonCounter] = *tmpEnemy;
-			enemies[dragonCounter].setX(getX(tmpLocation);
+			enemies[dragonCounter].setX(getX(tmpLocation));
 			dragonCounter++;
 		}
 	}
@@ -118,7 +116,7 @@ void Floor::generateEnemies(int enemyNum = 20){
 
 //************public functions************
 
-Floor::Floor(int nFloorNum, string filename, int nWidth = 79, int nHight = 25) :
+Floor::Floor(int nFloorNum, std::string filename, int nWidth = 79, int nHight = 25) :
 floorNum(nFloorNum), width(nWidth), height(nHight)
 {
 	readMap(filename);
