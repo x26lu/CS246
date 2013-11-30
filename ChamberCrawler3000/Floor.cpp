@@ -6,10 +6,20 @@
 #include "Floor.h"
 using namespace std;
 
-Floor::Floor(int currentFloor, string filename)
-{
-	floorNum = currentFloor;
-	readMap(filename);
+int Floor::getIndex(int x, int y){
+	return width * y + x;
+}
+
+int Floor::getRand(int range, int start = 0){
+	srand(time(NULL));
+	rand() % range + start;
+}
+
+void Floor::init(){
+	generatePotions();
+	generateGolds();
+	generateEnemies();
+
 }
 
 void Floor::readMap(string filename){
@@ -20,12 +30,13 @@ void Floor::readMap(string filename){
 		cerr << "Cannot open map file" << endl;
 	}
 	else{
-		for (int j = 0; j < 79; j++)
+		for (int j = 0; j < width; j++)
 		{
-			for (int i = 0; i < 25; i++)
+			for (int i = 0; i < height; i++)
 			{
+				int index = getIndex(j, i);
 				//TODO: check for numbers that represent items and modify them
-				if (!(file >> map[j][i]))
+				if (!(file >> map[index]))
 				{
 					std::cerr << "error while reading file";
 					break;
@@ -35,11 +46,6 @@ void Floor::readMap(string filename){
 		}
 	}
 	file.close();
-}
-
-int getRand(int range, int start = 0){
-	srand(time(NULL));
-	rand() % range + start;
 }
 
 //generate random potions
@@ -100,15 +106,24 @@ void Floor::generateEnemies(int enemyNum = 20){
 	}
 }
 
-void Floor::spawn(){
-	generatePotions();
-	generateGolds();
-	generateEnemies();
+Floor::Floor(int nFloorNum, string filename, int nWidth = 79, int nHight = 25) :
+floorNum(nFloorNum), width(nWidth), height(nHight)
+{
+	readMap(filename);
+}
+
+void Floor::draw(int x, int y, char newChar){
+	int index = getIndex(x, y);
+	map[index] = newChar;
+}
+
+void Floor::longDraw(int nX, int nY, const char* newChars){
 
 }
 
-void Floor::move(Location oldLocation, Location newLocation);
-Location* Floor::getRadius(Location currentLocation);
+Location* Floor::getRadius(Location currentLocation){
+
+}
 
 Floor::~Floor()
 {
