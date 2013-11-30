@@ -4,6 +4,7 @@ class Gold: public Item{
 	protected:
 	std::string value;
 	public:
+	Gold():Item(){}
 	Gold(std::string type,Location loca):Item(loca,'G'){
 		value=type;
 	}
