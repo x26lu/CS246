@@ -8,7 +8,7 @@ Potion::Potion():Item(){
 	wa=0;
 	wd=0;
 }
-Potion::Potion(int x, int y,std::string pot):Item(0,0,'P'){
+Potion::Potion(std::string pot, int x, int y) :Item('P', 0, 0){
 	type=pot;
 	rh=0;
 	ba=0;

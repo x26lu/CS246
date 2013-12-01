@@ -4,7 +4,7 @@
 	Enemy::Enemy():Character(){	
 	}
 	Enemy::Enemy(std::string races,int x ,int y){
-		if(races="vampire"){
+		if(races=="vampire"){
 			Character(50,25,25,1,x,y,'V');
 		}else if(races=="werewolf"){
 			Character(120,30,5,1,x,y,'W');
