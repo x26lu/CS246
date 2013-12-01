@@ -11,7 +11,7 @@ class Item{
 	
 	public:
 	Item();
-	Item(int x,int y, char sym);
+	Item( char sym,int x,int y);
 	char getSymbol();
 	void setX(int r);
 	void setY(int c);

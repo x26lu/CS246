@@ -2,8 +2,12 @@
 
 
 	Gold::Gold():Item(){}
-	Gold::Gold(int x , int y,std::string type):Item(x,y,'G'){
+	Gold::Gold(std::string type,int x , int y):Item('G',x,y){
 		value=type;
+	}
+	Gold::Gold(std::string type,int x , int y, Enemey &dragon):Item('G',x,y){
+		value=type;
+		keeper=dragon;
 	}
 	int Gold::getValue(){
 		if(value=="normal"){
@@ -16,7 +20,9 @@
 			return 4;
 		}
 	}
-
+	bool Gold::isDragonkilled(){
+		return keeper.getHp()<=0;
+	}
 	std::string Gold::getType(){
 		return value;
 	}

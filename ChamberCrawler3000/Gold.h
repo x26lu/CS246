@@ -3,15 +3,18 @@
 
 #include "item.h"
 #include <string>
-
+#include "enemy.h"
 class Gold: public Item{
 	protected:
 	std::string value;
+	Enemy keeper;
 	public:
 	Gold();
-	Gold(int x, int y,std::string type);
+	Gold(std::string type,int x, int y);
+	Gold(std::string type,int x, int y, Enemey &dragon);
 	int getValue();
 	
 	std::string getType();
 };
+bool isDragonkilled();
 #endif

@@ -5,7 +5,7 @@
 		y=0;
 		symbol='0';
 	}
-	Item::Item(int x,int y, char sym){
+	Item::Item(char sym,int x,int y){
 		symbol=sym;
 	}
 	char Item::getSymbol(){
