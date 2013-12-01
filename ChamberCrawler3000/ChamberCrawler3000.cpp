@@ -4,35 +4,42 @@
 #include <iostream>
 #include "floor.h"
 
-using namespace std;
-
 void printScreen(Floor *floor){
 	int width = floor->getWidth();
 	int height = floor->getHeight();
 	for (int i = 0; i < height; i++){
 		for (int j = 0; j < width; j++){
-			cout << floor->getCharAt(j, i);
+			std::cout << floor->getCharAt(j, i);
 		}
-		cout << endl;
+		std::cout << std::endl;
 	}
 }
 
 int main(int argc, char *argv[]) {
 {
 	//welcome msg
-	// while didn't say quit game
-	while (1) {
-		// while end game session = false && floorNum <=8
-		while (1)
+	std::string filename = "default.txt";
+	bool quit = false;
+	while (!quit) {
+		bool endSession = false;
+		int floorNum = 1;
+		while (!endSession && floorNum <= 8)
 		{
-			int floorNum = 1;
-			string floorMap = "default.txt";
-			Floor newFloor(floorNum, floorMap);
-			// spawn stair
-			// spawn player
-			// reachStair = false
-			// while player didnt reach stair && endGame = false
-			while (true)
+			if (argc != 3 && argc != 1){
+				std::cerr << "unsupported command";
+			}
+			else if (argc == 3){
+				if (argv[1] == "-i"){
+					filename = argv[2];
+				}
+				else {
+					std::cerr << "unsupported command";
+				}
+			}
+
+			Floor newFloor(floorNum, filename);
+			bool reachStair = false;
+			while (!reachStair && !endSession)
 			{
 				// Read player's command
 					// player's turn
