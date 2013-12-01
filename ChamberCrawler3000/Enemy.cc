@@ -11,14 +11,14 @@
 		}else if(races=="dragon"){
 			Character(150,20,20,0,x,y,'D');
 		}else if(races=="goblin"){
-			Character(70,5,10,1,x,y'N');
+			Character(70,5,10,1,x,y,'N');
 		}else if(races=="merchant"){
-			Character(30,70,5,0,x,y'M');
+			Character(30,70,5,0,x,y,'M');
 			hostile=0;
 		}else if(races=="phoenix"){
-			Character(50,35,20,1,,x,y'X');
+			Character(50,35,20,1,x,y,'X');
 		}else {
-			Character(120,25,15,1,x,y'T');
+			Character(120,25,15,1,x,y,'T');
 		}
 	}
 	void Enemy::beHostile(){

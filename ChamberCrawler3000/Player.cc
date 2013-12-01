@@ -6,7 +6,7 @@
 	Player::Player(std::string rac,int x , int y){
 		race=rac;
 		floor=1;
-		atkmodfiy=0;
+		atkmodify=0;
 		defmodify=0;
 	
 		if(race=="orc"){
@@ -30,7 +30,7 @@
 	void Player::usePotion(Potion pot){
 		if(pot.getType()=="RH"){
 			hp+=10;
-			if(hp>maxhp){ hp=maxHp;}
+			if(hp>maxhp){ hp=maxhp;}
 		}else if(pot.getType()=="BA"){
 			atkmodify+=5;
 			atk+=5;
@@ -38,7 +38,7 @@
 			defmodify+=5;
 			def+=defmodify;
 		}else if(pot.getType()=="PH"){
-			ph-=10;
+			hp-=10;
 			if(hp<0){hp=0;/*gameend();*/}
 		}else if(pot.getType()=="WA"){
 			atkmodify-=5;

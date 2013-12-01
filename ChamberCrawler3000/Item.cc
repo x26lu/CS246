@@ -9,10 +9,10 @@
 		loc=loca;
 		symbol=sym;
 	}
-	Item::char getSymbol(){
+	char Item::getSymbol(){
 		return symbol;
 	}
-	void Item::setX(int r){x=r;}
+	void Item::setX(int r){x=r; }
 	void Item::setY(int c){y=c;}
 	int Item::getX(){return x;}
 	int Item::getY(){return y;}

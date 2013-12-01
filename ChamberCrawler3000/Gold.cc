@@ -16,10 +16,8 @@
 			return 4;
 		}
 	}
-	void Gold::setLocation(Location locat){
-		loc=locat;
-	}
+
 	std::string Gold::getType(){
 		return value;
 	}
-};
+

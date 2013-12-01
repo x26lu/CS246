@@ -7,6 +7,6 @@ class Gold: public Item{
 	Gold();
 	Gold(int x, int y,std::string type);
 	int getGold();
-	void setLocation(Location locat);
+	
 	std::string getType();
 };
