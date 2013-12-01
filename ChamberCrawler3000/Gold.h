@@ -10,7 +10,7 @@ class Gold: public Item{
 	public:
 	Gold();
 	Gold(int x, int y,std::string type);
-	int getGold();
+	int getValue();
 	
 	std::string getType();
 };

@@ -5,7 +5,7 @@
 	Gold::Gold(int x , int y,std::string type):Item(x,y,'G'){
 		value=type;
 	}
-	int Gold::getGold(){
+	int Gold::getValue(){
 		if(value=="normal"){
 			return 1;
 		}else if(value=="smallHorde"){
