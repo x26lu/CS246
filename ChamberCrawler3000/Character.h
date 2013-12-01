@@ -27,7 +27,7 @@ class Character{
 	int getAtk();
 	int getDef();
 	int getHp();
-	int defend(Character attacker);
+	void defend(Character attacker);
 	
 
 };
