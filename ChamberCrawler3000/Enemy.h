@@ -7,7 +7,7 @@
 class Enemy : public Character{
 
 	protected:	
-	static int hostile;
+	int hostile;
 	std::string race;
 	
 	public:

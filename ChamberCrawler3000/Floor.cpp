@@ -47,25 +47,22 @@ void Floor::readMap(std::string filename){
 	std::ifstream file;
 	file.open(filename.c_str());
 
-	if (file.fail()){
-		std::cerr << "Cannot open map file" << std::endl;
+	file.read(map, sizeof map);
+	if (file.eof())
+	{
+		// got the whole file...
+		size_t bytes_really_read = file.gcount();
+
 	}
-	else{
-		for (int j = 0; j < width; j++)
-		{
-			for (int i = 0; i < height; i++)
-			{
-				int index = getIndex(j, i);
-				//TODO: check for numbers that represent items and modify them
-				if (!(file >> map[index]))
-				{
-					std::cerr << "error while reading file";
-					break;
-				}
-			}
-			if (!file) break;
-		}
+	else if (file.fail())
+	{
+		std::cout << "Cannot open map file: " << filename << std::endl;
 	}
+	else
+	{
+		std::cout << filename << " is too large for a map" << std::endl;
+	}
+
 	file.close();
 }
 

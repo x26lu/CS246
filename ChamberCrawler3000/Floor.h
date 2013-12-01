@@ -7,7 +7,7 @@ class Floor
 	int floorNum;
 	int width;
 	int height;
-	char* map;	//stores the map, obj.index=obj.y*width+obj.x
+	char map[1975];	//stores the map, obj.index=obj.y*width+obj.x
 	Enemy* enemies;
 	Potion* potions;
 	Gold* golds;
