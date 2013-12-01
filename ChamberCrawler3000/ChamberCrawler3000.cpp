@@ -69,6 +69,7 @@ int main(int argc, char *argv[])
 
 				if (cmd == "q"){
 					//TODO: theres bug with q and r, once build debug it
+					
 					quit = true;
 					break;
 				}
@@ -77,7 +78,7 @@ int main(int argc, char *argv[])
 					break;
 				}
 				else if (cmd.find("u ")){
-					//TODO: add case for use potion and attack
+					player.usePotion(//potion pot)
 				}
 				else if (cmd.find("a ")){
 					//TODO: add case for use potion and attack
@@ -127,9 +128,15 @@ int main(int argc, char *argv[])
 				// using for loop to go through enemies
 				// if within radius of player, attack, else move
 				// if player.hp = 0, endSession = true
+				
 			}
 		}
-		//TODO: calculate score
+		double score;
+		if(player.getRace()=="human"){
+			score=player.getGold()*1.5;
+		}else{
+			scoer=player.getGold();
+		}
 	}
 	return 0;
 }

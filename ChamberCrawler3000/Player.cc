@@ -27,6 +27,7 @@
 		def-=defmodify;
 		defmodify=0;
 	}
+	std::string Player::getRace(){return race;}
 	void Player::usePotion(Potion pot){
 		if(pot.getType()=="RH"){
 			hp+=10;

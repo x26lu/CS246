@@ -7,10 +7,11 @@
 class Enemy : public Character{
 
 	protected:	
-	static int hostile;
+	
 	std::string race;
 	
 	public:
+	static int hostile;
 	Enemy();
 	Enemy(std::string races,int x ,int y);
 	void beHostile();

@@ -15,7 +15,7 @@ class Player: public Character{
 	public:
 	Player();
 	Player(std::string rac,int x , int y);
-
+	std::string getRace();
 	void nextFloor();
 	void usePotion(Potion pot);
 };

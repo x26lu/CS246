@@ -27,6 +27,7 @@ class Character{
 	int getAtk();
 	int getDef();
 	int getHp();
+	int getGold();
 	void defend(Character attacker);
 	
 
