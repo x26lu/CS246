@@ -1,4 +1,4 @@
-#include "item.cc"
+#include "item.h"
 #include <stdlib.h>
 
 class Potion : public Item{
@@ -8,5 +8,6 @@ class Potion : public Item{
 	Potion();
 	Potion(int x, int y,std::string pot);
 	std::string getType();
+	bool is
 
 };

@@ -1,4 +1,4 @@
-#include "character.cc"
+#include "character.h"
 #include <string>
 
 class Enemy : public Character{

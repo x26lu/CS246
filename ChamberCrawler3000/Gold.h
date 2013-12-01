@@ -1,4 +1,4 @@
-#include "item.cc"
+#include "item.h"
 #include <string>
 class Gold: public Item{
 	protected:

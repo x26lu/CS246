@@ -1,6 +1,6 @@
-#include "character.cc"
-#include <string.h>
-#include "potion.cc"
+#include "character.h"
+#include <string>
+#include "potion.h"
 
 class Player: public Character{
 	protected:

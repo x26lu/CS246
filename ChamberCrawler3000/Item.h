@@ -1,5 +1,5 @@
 #include <string>
-#include "location.cc"
+
 class Item{
 	protected:
 	int x;
