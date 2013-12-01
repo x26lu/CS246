@@ -169,7 +169,7 @@ void Floor::longDraw(int nX, int nY, const char* newChars){
 
 void Floor::release(int x, int y){
 	//determine the symbol at current location according to chars around
-	//TODO: this will only work for current floorplan, need to add more cases for random generated floor
+	//NOTE£º this will only work for current floorplan, need to add more cases for random generated floor
 	char left = getCharAt(x - 1, y);
 	char right = getCharAt(x + 1, y);
 	char current;
@@ -206,28 +206,54 @@ int Floor::spawn(){
 	return 0;
 }
 
-int* Floor::getRadius(int x, int y){
-	//not sure if needed, leave out for now
-}
-
 int Floor::getUnoccupiedRadius(int x, int y){
-	int tmp = 0;
-	bool isMoved = false;
-	while (isMoved == false)
-	{
-		tmp = getRand(9);
-		if (tmp == 0){
-
-		}
-		if (tmp == 0){
-
+	//get indexes of moveable locations with one radius
+	for (int iX = x - 1; iX <= x + 1; iX++){
+		for (int iY = y - 1; iY <= y + 1; iY++){
+			if (getCharAt(iX, iY) == SymbolFloorTile){
+				//store index in an array
+			}
 		}
 	}
-	
+
+	int sizeMoveable = 0;
+	//TODO£ºif size = 0, return
+
+	//randomly select one of them
+	int tmp = getRand(sizeMoveable);
+	return tmp;
+}
+
+Enemy* Floor::getEnemy(int x, int y){
+	for (int i = 0; i < sizeof(enemies); i++){
+		if (enemies[i].getX() == x && enemies[i].getY() == y){
+			return &enemies[i];
+		}
+	}
+	return NULL;
+}
+
+Gold* Floor::getGold(int x, int y){
+	for (int i = 0; i < sizeof(golds); i++){
+		if (golds[i].getX() == x && golds[i].getY() == y){
+			return &golds[i];
+		}
+	}
+	return NULL;
+}
+
+Potion* Floor::getPotion(int x, int y){
+	for (int i = 0; i < sizeof(potions); i++){
+		if (potions[i].getX() == x && potions[i].getY() == y){
+			return &potions[i];
+		}
+	}
+	return NULL;
 }
 
 Floor::~Floor()
 {
+	delete[] map;
 	delete[] potions;
 	delete[] golds;
 	delete[] enemies;
