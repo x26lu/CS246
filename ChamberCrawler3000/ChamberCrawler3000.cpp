@@ -35,11 +35,12 @@ int main(int argc, char *argv[]) {
 			while (true)
 			{
 				// Read player's command
-					// player moves
+					// player's turn
+						//can move or attack, if move
 						//if on gold, get gold
 						//if on stair, reachStair = true, floorNum++
-					// enemy moves one by one
-						//if ended up within radius of player, attack
+					// enemy's turn, generated one by one
+						//if within radius of player, attack, else move
 				printScreen(&newFloor);
 				// if player.hp = 0, endGame = true
 			}
