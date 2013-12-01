@@ -31,6 +31,7 @@
 	int Character::getAtk(){return atk;}
 	int Character::getDef(){return def;}
 	int Character::getHp(){return hp;}
+	int Character::getGold(){return gold;}
 	void Character::defend(Character attacker){
 		hp-=ceil((100/(100+def))*attacker.getAtk());
 	}

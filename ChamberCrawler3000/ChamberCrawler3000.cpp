@@ -69,6 +69,7 @@ int main(int argc, char *argv[])
 
 				if (cmd == "q"){
 					//TODO: theres bug with q and r, once build debug it
+					
 					quit = true;
 					break;
 				}
@@ -77,10 +78,28 @@ int main(int argc, char *argv[])
 					break;
 				}
 				else if (cmd.find("u ")){
-					//TODO: add case for use potion and attack
+					int check=0;
+					for(int r=currentX-1;r<=currentX+1;r++){
+						for(int c=currentY;c<=currentY+1;c++){
+							if(floor.getPotion(x,y)!=NULL){
+								player->usePotion(floor.getPotion(x,y));
+								check=1;
+							}
+						}
+					}
+					if(check==0);//no potion nearby{}
 				}
 				else if (cmd.find("a ")){
-					//TODO: add case for use potion and attack
+					int check=0;
+					for(int r=currentX-1;r<=currentX+1;r++){
+						for(int c=currentY;c<=currentY+1;c++){
+							if(floor.getEnemy(x,y)!=NULL){
+								getEnemy->defend(player);
+								check=1;
+							}
+						}
+					}
+					if(check==0);//no enemy nearby{}
 				}
 				else{
 					int targetX = currentX;
@@ -111,7 +130,19 @@ int main(int argc, char *argv[])
 					if (floor.getCharAt(targetX, targetY) == 'G'){
 						if (floor.getGold(targetX, targetY)->getType() == "dragonHorde"){
 							//TODO: check if dragon is killed
-							//if killed can get the gold, else cant
+							int check=1;
+							for(int r=targetX-1;r<=targetX+1;r++){
+								for(int c=targetY;c<=targetY+1;c++){
+									if(floor.getEnemy(x,y).getRace()=="dragon"){
+										check=0;
+									}
+								}
+							}
+							if(check==1){
+								plaer->setGold(player->getGold()+floor.getGold(targetX,targetY)->getValue());
+							}else{
+								//dragon is alive;
+							}
 						}
 						totalGold += floor.getGold(targetX, targetY)->getValue();
 					}
@@ -127,9 +158,16 @@ int main(int argc, char *argv[])
 				// using for loop to go through enemies
 				// if within radius of player, attack, else move
 				// if player.hp = 0, endSession = true
+				
+				
 			}
 		}
-		//TODO: calculate score
+		double score;
+		if(player.getRace()=="human"){
+			score=player.getGold()*1.5;
+		}else{
+			scoer=player.getGold();
+		}
 	}
 	return 0;
 }

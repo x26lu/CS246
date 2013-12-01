@@ -7,12 +7,12 @@
 class Enemy : public Character{
 
 	protected:	
-	int hostile;
-	std::string race;
-	
+		std::string race;
 	public:
+	static int hostile;
 	Enemy();
 	Enemy(std::string races,int x ,int y);
+	std::string getRace();
 	void beHostile();
 	bool isHostile();
 };

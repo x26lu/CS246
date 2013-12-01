@@ -21,6 +21,9 @@
 			Character(120,25,15,1,x,y,'T');
 		}
 	}
+	std::string Enemy::getRace(){
+		return race;
+	}
 	void Enemy::beHostile(){
 		hostile=1;
 	}
