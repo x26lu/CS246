@@ -22,6 +22,7 @@ class Floor
 	void generatePotions(int potionNum=10);	//generate 10 random potions
 	void generateGolds(int goldNum=20);	//generate 10 random golds
 	void generateEnemies(int enemyNum=20);	//generate 20 random enemies (dragon according to golds)
+	//a map of chamberNum with index
 public:
 	Floor(int nFloorNum, std::string filename, int nWidth=79, int nHeight=25);
 	int getWidth();
@@ -31,7 +32,11 @@ public:
 	void longDraw(int nX, int nY, const char* newChars);	//draw multiple chars at given location
 	void release(int x, int y);	//turn symbol at target location back to default
 	void move(int oldX, int oldY, int newX, int newY);	//move from old location to new location
+	int spawn();	//return a random generated location
 	int* getRadius(int x, int y);	//get indexes of available locations in 1 radius of current location
 	int getUnoccupiedRadius(int x, int y);		//get one random unoccupied location in 1 radius
+	Enemy* getEnemy(int x, int y);	//return the enemy obj at current location
+	Gold* getGold(int x, int y);
+	Potion* getPotion(int x, int y);
 	~Floor();
 };
