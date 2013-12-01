@@ -13,6 +13,7 @@ const char SymbolPassage = '#';
 const char SymbolStair = '\\';
 const char SymbolGold = 'G';
 const char SymbolPotion = 'P';
+const char SymbolSpace = ' '; 
 const char SymbolWarewolf = NULL;
 
 int Floor::getIndex(int x, int y){ return width * y + x; }
@@ -21,21 +22,23 @@ int Floor::getX(int index){ return index % width; }
 
 int Floor::getY(int index){ return index / width; }
 
-int Floor::getRand(int range, int start = 0){
+int Floor::getRand(int range, int start){
 	srand(time(NULL));
 	return rand() % range + start;
 }
 
 bool Floor::isMoveable(int x, int y){
 	char tmp = map[getIndex(x, y)];
-	if (tmp == VerticalWallSymbol | )
+	if (tmp == SymbolPassage || SymbolFloorTile || SymbolDoorway || SymbolGold){
+		return true;
+	}
+	else return false;
 }
 
 void Floor::init(){
 	generatePotions();
 	generateGolds();
 	generateEnemies();
-
 }
 
 void Floor::readMap(std::string filename){
@@ -65,7 +68,7 @@ void Floor::readMap(std::string filename){
 }
 
 //generate random potions
-void Floor::generatePotions(int potionNum = 10){
+void Floor::generatePotions(int potionNum){
 	potions = new Potion[potionNum];
 	for(int i = 0; i < potionNum; i++){
 		int tmp = getRand(6);
@@ -81,7 +84,7 @@ void Floor::generatePotions(int potionNum = 10){
 } 
 
 //generate random golds
-void Floor::generateGolds(int goldNum = 10){
+void Floor::generateGolds(int goldNum){
 	golds = new Gold[goldNum];
 	for (int i = 0; i < goldNum; i++){
 		int tmp = getRand(8);
@@ -94,7 +97,7 @@ void Floor::generateGolds(int goldNum = 10){
 }
 
 //generate random enemies (with dragon according to golds)
-void Floor::generateEnemies(int enemyNum = 20){
+void Floor::generateEnemies(int enemyNum){
 	enemies = new Enemy[enemyNum];
 	int dragonCounter = 0;
 
@@ -126,7 +129,7 @@ void Floor::generateEnemies(int enemyNum = 20){
 
 //************public functions************
 
-Floor::Floor(int nFloorNum, std::string filename, int nWidth = 79, int nHight = 25) :
+Floor::Floor(int nFloorNum, std::string filename, int nWidth, int nHight) :
 floorNum(nFloorNum), width(nWidth), height(nHight)
 {
 	readMap(filename);
@@ -167,21 +170,22 @@ void Floor::release(int x, int y){
 	char right = getCharAt(x + 1, y);
 	char current;
 
-	if (left == ' '){ current = '#'; }
-	else if (left == '-'){ current = '+'; }
-	else if (left == '|'){ current = '.'; }
-	else if (left == '+'){
-		if (right == '.'){ current = '.'; }
-		else { current = '#'; }
+	if (left == SymbolSpace){ current = SymbolPassage; }
+	else if (left == SymbolHorizontalWall){ current = SymbolDoorway; }
+	else if (left == SymbolVerticalWall){ current = SymbolFloorTile; }
+	else if (left == SymbolDoorway){
+		if (right == SymbolFloorTile){ current = SymbolFloorTile; }
+		else { current = SymbolPassage; }
 	}
-	else if (left == '.'){
-		if (right == '#'){ current = '+'; }
-		else { current = '.'; }
+	else if (left == SymbolFloorTile){
+		if (right == SymbolFloorTile || right == SymbolVerticalWall){ current = SymbolFloorTile; }
+		else { current = SymbolDoorway; }
 	}
-	else if (left == '#'){
-		if (right == '.'){ current = '+'; }
-		else { current = '#'; }
+	else if (left == SymbolPassage){
+		if (right == SymbolPassage || right == SymbolSpace){ current = SymbolPassage; }
+		else { current = SymbolDoorway; }
 	}
+	else{ current = SymbolFloorTile; }
 
 	draw(x, y, current);
 }
@@ -193,12 +197,23 @@ void Floor::move(int oldX, int oldY, int newX, int newY){
 }
 
 int* Floor::getRadius(int x, int y){
-
+	//not sure if needed, leave out for now
 }
 
 int Floor::getUnoccupiedRadius(int x, int y){
-	getRand(9);
+	int tmp = 0;
+	bool isMoved = false;
+	while (isMoved == false)
+	{
+		tmp = getRand(9);
+		if (tmp == 0){
 
+		}
+		if (tmp == 0){
+
+		}
+	}
+	
 }
 
 Floor::~Floor()

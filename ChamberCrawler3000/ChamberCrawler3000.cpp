@@ -17,19 +17,34 @@ void printScreen(Floor *floor){
 	}
 }
 
-int _tmain(int argc, _TCHAR* argv[])
+int main(int argc, char *argv[]) {
 {
-	while (1)
-	{
-		string floorMap = "default.txt";
-		int floorNum = 1;
-		Floor newFloor(floorNum, floorMap);
-		// Read player's command
-		//    Update dungeon
-		//    Draw dungeon
-		printScreen(&newFloor);
-		break;
+	//welcome msg
+	// while didn't say quit game
+	while (1) {
+		// while end game session = false && floorNum <=8
+		while (1)
+		{
+			int floorNum = 1;
+			string floorMap = "default.txt";
+			Floor newFloor(floorNum, floorMap);
+			// spawn stair
+			// spawn player
+			// reachStair = false
+			// while player didnt reach stair && endGame = false
+			while (true)
+			{
+				// Read player's command
+					// player moves
+						//if on gold, get gold
+						//if on stair, reachStair = true, floorNum++
+					// enemy moves one by one
+						//if ended up within radius of player, attack
+				printScreen(&newFloor);
+				// if player.hp = 0, endGame = true
+			}
+		}
+		//calculate score
 	}
-
 	return 0;
 }
