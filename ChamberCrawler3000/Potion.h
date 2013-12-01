@@ -14,7 +14,7 @@ class Potion : public Item{
 	int wd;
 	public:
 	Potion();
-	Potion(int x, int y,std::string pot);
+	Potion(std::string pot,int x, int y,);
 	std::string getType();
 	//void used(Potion pot);
 	//bool isRevealed();

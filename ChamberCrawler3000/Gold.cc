@@ -5,7 +5,7 @@
 	Gold::Gold(std::string type,int x , int y):Item('G',x,y){
 		value=type;
 	}
-	Gold::Gold(std::string type,int x , int y, Enemey &dragon):Item('G',x,y){
+	Gold::Gold(std::string type,int x , int y, Enemy &dragon):Item('G',x,y){
 		value=type;
 		keeper=dragon;
 	}
