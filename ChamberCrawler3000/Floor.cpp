@@ -22,6 +22,14 @@ int Floor::getX(int index){ return index % width; }
 
 int Floor::getY(int index){ return index / width; }
 
+void Floor::init(){
+	generatePotions();
+	generateGolds();
+	generateEnemies();
+	//spawn stair
+	//spawn player
+}
+
 int Floor::getRand(int range, int start){
 	srand(time(NULL));
 	return rand() % range + start;
@@ -33,12 +41,6 @@ bool Floor::isMoveable(int x, int y){
 		return true;
 	}
 	else return false;
-}
-
-void Floor::init(){
-	generatePotions();
-	generateGolds();
-	generateEnemies();
 }
 
 void Floor::readMap(std::string filename){
@@ -129,11 +131,12 @@ void Floor::generateEnemies(int enemyNum){
 
 //************public functions************
 
-Floor::Floor(int nFloorNum, std::string filename, int nWidth, int nHight) :
-floorNum(nFloorNum), width(nWidth), height(nHight)
+//nWidth and nHeight are not required for this project, but they are included for further enhancement.
+Floor::Floor(int nFloorNum, std::string filename, int nWidth, int nHeight) :
+floorNum(nFloorNum), width(nWidth), height(nHeight)
 {
 	readMap(filename);
-	init();
+	if (filename == "default.txt"){ init(); }
 }
 
 int Floor::getWidth(){
