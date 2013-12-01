@@ -14,6 +14,7 @@ class Potion : public Item{
 	int wd;
 	public:
 	Potion();
+
 	Potion(std::string pot, int x, int y);
 	std::string getType();
 	//void used(Potion pot);
