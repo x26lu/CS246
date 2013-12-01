@@ -7,22 +7,12 @@ class Item{
 	char symbol;
 	
 	public:
-	Item(){
-		x=0;
-		y=0;
-		symbol='0';
-	}
-	Item(int x,int y, char sym){
-		loc=loca;
-		symbol=sym;
-	}
-	char getSymbol(){
-		return symbol;
-	}
-	Location getLocation(){
-		return loc;
-	}
-	//virtual std::string getType()=0;
-	
+	Item();
+	Item(int x,int y, char sym);
+	char getSymbol();
+	void setX(int r);
+	void setY(int c);
+	int getX();
+	int getY();
 
 };
