@@ -14,6 +14,7 @@ class Enemy : public Character{
 	static int hostile;
 	Enemy();
 	Enemy(std::string races,int x ,int y);
+	std::string getRace();
 	void beHostile();
 	bool isHostile();
 };

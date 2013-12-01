@@ -7,7 +7,7 @@
 class Gold: public Item{
 	protected:
 	std::string value;
-	Enemy keeper;
+
 	public:
 	Gold();
 	Gold(std::string type,int x, int y);
@@ -15,7 +15,7 @@ class Gold: public Item{
 	int getValue();
 	
 	std::string getType();
-	bool isDragonkilled();
+	
 };
 
 #endif
