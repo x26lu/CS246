@@ -111,11 +111,11 @@ int main(int argc, char *argv[])
 					if (floor.getCharAt(targetX, targetY) == 'G'){
 						if (floor.getGold(targetX, targetY)->getType() == "dragonHorde"){
 							//TODO: check if dragon is killed
+							//if killed can get the gold, else cant
 						}
 						totalGold += floor.getGold(targetX, targetY)->getValue();
 					}
-					//if on stair, reachStair = true, floorNum++
-					if (floor.getCharAt(targetX, targetY) == '/'){
+					else if (floor.getCharAt(targetX, targetY) == '\\'){
 						reachStair = true;
 						floorNum++;
 					}
@@ -123,12 +123,13 @@ int main(int argc, char *argv[])
 					player->setX(currentX++);
 					player->setY(currentY--);
 				}
-				// enemy's turn, generated one by one
-				//if within radius of player, attack, else move
-				// if player.hp = 0, endGame = true
+				// TODO: enemy's turn, generated one by one
+				// using for loop to go through enemies
+				// if within radius of player, attack, else move
+				// if player.hp = 0, endSession = true
 			}
 		}
-		//calculate score
+		//TODO: calculate score
 	}
 	return 0;
 }
