@@ -1,3 +1,6 @@
+#ifndef ENEMY_H
+#define ENEMY_H
+
 #include "character.h"
 #include <string>
 
@@ -13,3 +16,4 @@ class Enemy : public Character{
 	void beHostile();
 	bool isHostile();
 };
+#endif

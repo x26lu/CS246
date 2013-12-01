@@ -1,5 +1,9 @@
+#ifndef GOLD_H
+#define GOLD_H
+
 #include "item.h"
 #include <string>
+
 class Gold: public Item{
 	protected:
 	std::string value;
@@ -10,3 +14,4 @@ class Gold: public Item{
 	
 	std::string getType();
 };
+#endif

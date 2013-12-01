@@ -19,8 +19,8 @@ Potion::Potion(int x, int y,std::string pot):Item(0,0,'P'){
 }
 std::string Potion::getType(){
 	return type;
-}
-void Potion::used(Potion pot){
+}/*
+void Potion::used(Potion &pot){
 	if(pot.getType=="RH"){
 		rh=1;
 	}else if(pot.getType=="BA"){
@@ -51,4 +51,4 @@ bool Potion::isRevealed(){
 		return wd==1;
 	}
 }
-
+*/

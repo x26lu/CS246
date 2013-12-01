@@ -1,3 +1,6 @@
+#ifndef PLAYER_H
+#define PLAYER_H
+
 #include "character.h"
 #include <string>
 #include "potion.h"
@@ -16,4 +19,4 @@ class Player: public Character{
 	void nextFloor();
 	void usePotion(Potion pot);
 };
-
+#endif

@@ -1,3 +1,5 @@
+#ifndef POTION_H
+#define POTION_H
 #include "item.h"
 #include <stdlib.h>
 
@@ -14,7 +16,8 @@ class Potion : public Item{
 	Potion();
 	Potion(int x, int y,std::string pot);
 	std::string getType();
-	void used(Potion pot);
-	bool isRevealed();
+	//void used(Potion pot);
+	//bool isRevealed();
 
 };
+#endif

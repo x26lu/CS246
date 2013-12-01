@@ -6,7 +6,6 @@
 		symbol='0';
 	}
 	Item::Item(int x,int y, char sym){
-		loc=loca;
 		symbol=sym;
 	}
 	char Item::getSymbol(){
