@@ -17,10 +17,20 @@ void printScreen(Floor *floor){
 
 int main(int argc, char *argv[]) {
 {
-	//welcome msg
 	std::string filename = "default.txt";
 	bool quit = false;
+	char cmd;
 	while (!quit) {
+		do{
+			std::cout << "Please select your race, or enter 'q' to quit: " << std::endl;
+			std::cout << "\th. human" << std::endl;
+			std::cout << "\td. dwarf" << std::endl;
+			std::cout << "\te. elves" << std::endl;
+			std::cout << "\to. orc" << std::endl;
+			std::cin >> cmd;
+		} while (!std::cin >> cmd);
+
+		if (cmd == '')
 		bool endSession = false;
 		int floorNum = 1;
 		while (!endSession && floorNum <= 8)
@@ -41,6 +51,8 @@ int main(int argc, char *argv[]) {
 			bool reachStair = false;
 			while (!reachStair && !endSession)
 			{
+				char input;
+				cin >> input;
 				// Read player's command
 					// player's turn
 						//can move or attack, if move
