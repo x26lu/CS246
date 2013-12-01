@@ -11,10 +11,11 @@ class Gold: public Item{
 	public:
 	Gold();
 	Gold(std::string type,int x, int y);
-	Gold(std::string type,int x, int y, Enemey &dragon);
+	Gold(std::string type,int x, int y, Enemy &dragon);
 	int getValue();
 	
 	std::string getType();
+	bool isDragonkilled();
 };
-bool isDragonkilled();
+
 #endif
