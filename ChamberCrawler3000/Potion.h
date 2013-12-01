@@ -4,10 +4,17 @@
 class Potion : public Item{
 	protected:
 	std::string type;
+	int rh;
+	int ba;
+	int bd;
+	int ph;
+	int wa;
+	int wd;
 	public:
 	Potion();
 	Potion(int x, int y,std::string pot);
 	std::string getType();
-	bool is
+	void used(Potion pot);
+	bool isRevealed();
 
 };
