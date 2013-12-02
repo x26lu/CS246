@@ -88,25 +88,29 @@ int main(int argc, char *argv[])
 					int check=0;
 					for(int r=currentX-1;r<=currentX+1;r++){
 						for(int c=currentY;c<=currentY+1;c++){
-							if(floor.getPotion(x,y)!=NULL){
-								player->usePotion(floor.getPotion(x,y));
+							if(floor.getPotion(r,c)!=NULL){
+								player->usePotion(floor.getPotion(r,c));
 								check=1;
 							}
 						}
 					}
-					if(check==0);//no potion nearby{}
+					if(check==0){
+						std::cout << "No Potion Nearby" << std::endl;
+					}
 				}
 				else if (cmd.find("a ")){
 					int check=0;
 					for(int r=currentX-1;r<=currentX+1;r++){
 						for(int c=currentY;c<=currentY+1;c++){
-							if(floor.getEnemy(x,y)!=NULL){
-								getEnemy->defend(player);
+							if(floor.getEnemy(r,c)!=NULL){
+								floor.getEnemy(r,c)->defend(player);
 								check=1;
 							}
 						}
 					}
-					if(check==0);//no enemy nearby{}
+					if(check==0){
+						std::cout << "No Enemy Nearby" << std::endl;
+					}
 				}
 				else{
 					int targetX = currentX;
@@ -140,15 +144,15 @@ int main(int argc, char *argv[])
 							int check=1;
 							for(int r=targetX-1;r<=targetX+1;r++){
 								for(int c=targetY;c<=targetY+1;c++){
-									if(floor.getEnemy(x,y).getRace()=="dragon"){
+									if(floor.getEnemy(r,c)->getRace()=="dragon"){
 										check=0;
 									}
 								}
 							}
 							if(check==1){
-								plaer->setGold(player->getGold()+floor.getGold(targetX,targetY)->getValue());
+								totalGold += floor.getGold(targetX, targetY)->getValue();
 							}else{
-								//dragon is alive;
+								std::cout << "Dragon is alive can not get Treasure" << std::endl;
 							}
 						}
 						totalGold += floor.getGold(targetX, targetY)->getValue();
@@ -169,12 +173,10 @@ int main(int argc, char *argv[])
 				
 			}
 		}
-		double score;
 		if(player.getRace()=="human"){
-			score=player.getGold()*1.5;
-		}else{
-			scoer=player.getGold();
+			totalGold *=1.5;
 		}
+		std::cout << "Game End total score is " << totalGold<<std::endl;
 	}
 	return 0;
 }
