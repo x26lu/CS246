@@ -29,10 +29,14 @@ int main(int argc, char *argv[])
 	std::string cmd;
 
 	while (!quit) {
+		filename = "default.txt";
+		quit = false;
 		bool endSession = false;
 		int floorNum = 1;
 		while (!endSession && floorNum <= 8)
 		{
+			endSession = false;
+			floorNum = 1;
 			Player *player;
 			float totalGold = 0.0;
 			std::cout << "Please select your race, or enter 'q' to quit: " << std::endl;
@@ -233,7 +237,7 @@ int main(int argc, char *argv[])
 							currentChar == 'D' || currentChar == 'X' || currentChar == 'T'){
 							Enemy *e = floor.getEnemy(i, j);
 							if (e->getHp() > 0){
-								if (floor.isSymbolVisiable(i, j, 'a')){
+								if (floor.isSymbolVisiable(i, j, '@')){
 									player->defend(*e);
 									msg = msg + getAttackMsg(e, player);
 								}
@@ -241,9 +245,11 @@ int main(int argc, char *argv[])
 									int target = floor.getUnoccupiedRadius(i, j);
 									int targetX = floor.getX(target);
 									int targetY = floor.getY(target);
-									floor.move(i, j, targetX, targetY);
-									e->setX(targetX);
-									e->setY(targetY);
+									std::string m = floor.move(i, j, targetX, targetY);
+									if (m != ""){
+										e->setX(targetX);
+										e->setY(targetY);
+									}
 								}
 							}
 						}
