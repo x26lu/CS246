@@ -60,8 +60,10 @@ int main(int argc, char *argv[])
 
 			if (filename == "default.txt"){
 				floor.init();
-				floor.spawn('\\');
-				int tmp = floor.spawn('@');
+				int tmp = floor.spawn('\\');
+				floor.draw(floor.getX(tmp), floor.getY(tmp), '\\');
+				tmp = floor.spawn('@');
+				floor.draw(floor.getX(tmp), floor.getY(tmp), '@');
 				player->setX(floor.getX(tmp));
 				player->setY(floor.getY(tmp));
 			}
@@ -75,8 +77,6 @@ int main(int argc, char *argv[])
 				int currentY = player->getY();
 
 				if (cmd == "q"){
-					//TODO: theres bug with q and r, once build debug it
-					
 					quit = true;
 					break;
 				}
