@@ -84,7 +84,7 @@ int main(int argc, char *argv[])
 					endSession = true;
 					break;
 				}
-				else if (cmd.find("u ")){
+				else if (cmd.find("u ") != std::string::npos){
 					int check=0;
 					for(int r=currentX-1;r<=currentX+1;r++){
 						for(int c=currentY;c<=currentY+1;c++){
@@ -98,7 +98,7 @@ int main(int argc, char *argv[])
 						std::cout << "No Potion Nearby" << std::endl;
 					}
 				}
-				else if (cmd.find("a ")){
+				else if (cmd.find("a ") != std::string::npos){
 					int check=0;
 					for(int r=currentX-1;r<=currentX+1;r++){
 						for(int c=currentY;c<=currentY+1;c++){
@@ -113,8 +113,8 @@ int main(int argc, char *argv[])
 					}
 				}
 				else{
-					int targetX = currentX;
-					int targetY = currentY;
+					int targetX = player->getX();
+					int targetY = player->getY();
 
 					if (cmd == "no"){ targetY -= 1; }
 					else if (cmd == "ne"){
@@ -140,7 +140,7 @@ int main(int argc, char *argv[])
 					//if player move onto a gold, get the gold
 					if (floor.getCharAt(targetX, targetY) == 'G'){
 						if (floor.getGold(targetX, targetY)->getType() == "dragonHorde"){
-							//TODO: check if dragon is killed
+							//check if dragon is killed
 							int check=1;
 							for(int r=targetX-1;r<=targetX+1;r++){
 								for(int c=targetY;c<=targetY+1;c++){
@@ -161,9 +161,9 @@ int main(int argc, char *argv[])
 						reachStair = true;
 						floorNum++;
 					}
-					floor.move(currentX, currentY, currentX + 1, currentY - 1);
-					player->setX(currentX++);
-					player->setY(currentY--);
+					floor.move(currentX, currentY, targetX, targetY);
+					player->setX(targetX);
+					player->setY(targetY);
 				}
 				// TODO: enemy's turn, generated one by one
 				// using for loop to go through enemies
