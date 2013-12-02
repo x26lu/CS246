@@ -1,7 +1,7 @@
 #include "Enemy.h"
 #include "Potion.h"
 #include "Gold.h"
-
+#include <vector>
 class Floor
 {
 	int floorNum;
