@@ -19,11 +19,11 @@ class Floor
 	void generatePotions(int potionNum=10);	//generate 10 random potions
 	void generateGolds(int goldNum=20);	//generate 10 random golds
 	void generateEnemies(int enemyNum=20);	//generate 20 random enemies (dragon according to golds)
-	int* chamber1;
-	int* chamber2;
-	int* chamber3;
-	int* chamber4;
-	int* chamber5;
+	std::vector<int> chamber1;
+	std::vector<int> chamber2;
+	std::vector<int> chamber3;
+	std::vector<int> chamber4;
+	std::vector<int> chamber5;
 	int stairChamber = -1;
 public:
 	Floor(int nFloorNum, std::string filename, int nWidth=80, int nHeight=25);

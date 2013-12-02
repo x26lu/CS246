@@ -133,11 +133,11 @@ void Floor::generateEnemies(int enemyNum){
 Floor::Floor(int nFloorNum, std::string filename, int nWidth, int nHeight) :
 floorNum(nFloorNum), width(nWidth), height(nHeight)
 {
-	chamber1 = new int[1]{ 248 };
-	chamber2 = new int[2]{ 280, 281 };
-	chamber3 = new int[2]{ 924, 925 };
-	chamber4 = new int[2]{ 1607, 1608 };
-	chamber5 = new int[2]{ 1661, 1662 };
+	chamber1.resize(5,1);
+	chamber2.resize(5,2);
+	chamber3.resize(5,3);
+	chamber4.resize(5,4);
+	chamber5.resize(5,5);
 	readMap(filename);
 }
 
