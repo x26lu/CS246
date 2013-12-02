@@ -253,19 +253,19 @@ int Floor::spawn(char symbol){
 		} while (chamber == getStairChamber());
 	}
 	else chamber = getRand(5);
-	std::vector<int>* chambers = chamber1;
-	if (chamber == 0){ chambers = chamber1; }
-	else if(chamber == 1){ chambers = chamber2; }
-	else if (chamber == 2){ chambers = chamber3; }
-	else if (chamber == 3){ chambers = chamber4; }
-	else if (chamber == 4){ chambers = chamber5; }
+	std::vector<int>* chambers = &chamber1;
+	if (chamber == 0){ chambers = &chamber1; }
+	else if (chamber == 1){ chambers = &chamber2; }
+	else if (chamber == 2){ chambers = &chamber3; }
+	else if (chamber == 3){ chambers = &chamber4; }
+	else if (chamber == 4){ chambers = &chamber5; }
 
 	if (symbol == SymbolStair){ setStairChamber(chamber); }
-	int size = chambers.size();
+	int size = chambers->size();
 	do{
 		index = getRand(size);
-	} while (!isMoveable(getX(chambers[index]), getY(chambers[index]), false));
-	return chambers[index];
+	} while (!isMoveable(getX(chambers->at(index)), getY(chambers->at(index)), false));
+	return chambers->at(index);
 }
 
 //return index of an unoccupied location within 1 radius, return -1 if not found

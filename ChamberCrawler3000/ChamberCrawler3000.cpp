@@ -207,10 +207,10 @@ int main(int argc, char *argv[])
 						player->setY(targetY);
 					}
 					//if player sees a potion, report it
-					if (floor.isSymbolVisiable(player->getX, player->getY, 'P')){
+					if (floor.isSymbolVisiable(player->getX(), player->getY(), 'P')){
 						msg = msg + "Player sees a Potion. ";
 					}
-					if (floor.isSymbolVisiable(player->getX, player->getY, 'G')){
+					if (floor.isSymbolVisiable(player->getX(), player->getY(), 'G')){
 						msg = msg + "Player sees a Gold. ";
 					}
 				}
@@ -222,7 +222,7 @@ int main(int argc, char *argv[])
 						if (currentChar == 'W' || currentChar == 'V' || currentChar == 'N' || currentChar == 'M' ||
 							currentChar == 'D' || currentChar == 'X' || currentChar == 'T'){
 							Enemy *e = floor.getEnemy(i, j);
-							if (e->getHp > 0){
+							if (e->getHp() > 0){
 								if (floor.isSymbolVisiable(i, j, 'a')){
 									player->defend(*e);
 									msg = msg + getAttackMsg(e, player);
@@ -239,7 +239,7 @@ int main(int argc, char *argv[])
 						}
 					}
 				}
-				if (player->getHp <= 0){ endSession = true; }
+				if (player->getHp() <= 0){ endSession = true; }
 			}
 			if (player->getRace() == "human"){
 				totalGold *= 1.5;
