@@ -153,25 +153,31 @@ floorNum(nFloorNum), width(nWidth), height(nHeight)
 		}
 	}
 	int size3=1;
-	for(int x=38;x<=49;x++){	
+	for(int x=37;x<=48;x++){	
 		for (int y = 10; y <= 12; y++){
 			chamber3.resize(size3,getIndex(x,y));
 			size3++;
 		}
 	}
 	int size4=1;
-	for(int x=37;x<=75;x++){	
+	for(int x=36;x<=75;x++){	
 		for (int y = 16; y <= 21; y++){
-			if(x<=65&&y)
-			chamber4.resize(size4,getIndex(x,y));
-			size4++;
+			if(!(x<=63&&y>=18)){
+				chamber4.resize(size4,getIndex(x,y));
+				size4++;
+			}
 		}
 	}
-	chamber1.resize(5,1);
-	chamber2.resize(5,2);
-	chamber3.resize(5,3);
-	chamber4.resize(5,4);
-	chamber5.resize(5,5);
+	int size5=1;
+	for(int x=39;x<=75;x++){	
+		for (int y = 3; y <= 12; y++){
+			if((!(x<=60&&y>=7))||(!(y<=4&&x>=62)))||(!(y<=5&&x>=70)))||(!(y<=6&&x>=73))){
+				chamber5.resize(size5,getIndex(x,y));
+				size5++;
+			}
+		}
+	}
+
 	readMap(filename);
 }
 
