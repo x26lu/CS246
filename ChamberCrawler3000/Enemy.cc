@@ -3,22 +3,69 @@
 
 	Enemy::Enemy():Character(){	
 	}
-	Enemy::Enemy(std::string races,int x ,int y){
+	Enemy::Enemy(std::string races,int r ,int c){
 		if(races=="vampire"){
-			Character(50,25,25,1,x,y,'V');
+			hp=50;
+			atk=25;
+			def=25;
+			gold=1;
+			x=r;
+			y=c;
+			symbol='V';
 		}else if(races=="werewolf"){
+			hp=120;
+			atk=30;
+			def=5;
+			gold=1;
+			x=r;
+			y=c;
+			symbol='W';
 			Character(120,30,5,1,x,y,'W');
 		}else if(races=="dragon"){
+			hp=150;
+			atk=20;
+			def=20;
+			gold=0;
+			x=r;
+			y=c;
+			symbol='D';
 			Character(150,20,20,0,x,y,'D');
 		}else if(races=="goblin"){
-			Character(70,5,10,1,x,y,'N');
+			hp=70;
+			atk=5;
+			def=10;
+			gold=1;
+			x=r;
+			y=c;
+			symbol='N';
 		}else if(races=="merchant"){
-			Character(30,70,5,0,x,y,'M');
+			hp=30;
+			atk=70;
+			def=5;
+			gold=0;
+			x=r;
+			y=c;
+			symbol='M';
+			
 			hostile=0;
 		}else if(races=="phoenix"){
-			Character(50,35,20,1,x,y,'X');
+			hp=50;
+			atk=35;
+			def=20;
+			gold=1;
+			x=r;
+			y=c;
+			symbol='X';
+			
 		}else {
-			Character(120,25,15,1,x,y,'T');
+			hp=120;
+			atk=25;
+			def=15;
+			gold=1;
+			x=r;
+			y=c;
+			symbol='T';
+			
 		}
 	}
 	std::string Enemy::getRace(){

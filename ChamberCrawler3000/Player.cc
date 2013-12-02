@@ -3,20 +3,44 @@
 
 
 	Player::Player():Character(){}
-	Player::Player(std::string rac,int x , int y){
+	Player::Player(std::string rac,int r, int c){
 		race=rac;
 		floor=1;
 		atkmodify=0;
 		defmodify=0;
 	
 		if(race=="orc"){
-			Character(180,30,25,0,x,y,'@');
+			hp=180;
+			atk=30;
+			def=25;
+			gold=0;
+			x=r;
+			y=c;
+			symbol='@';
 		}else if(race=="dwarf"){
-			Character(100,20,30,0,x,y,'@');
+			hp=100;
+			atk=20;
+			def=30;
+			gold=0;
+			x=r;
+			y=c;
+			symbol='@';
 		}else if (race=="elves"){
-			Character(140,30,10,0,x,y,'@');
+			hp=130;
+			atk=30;
+			def=10;
+			gold=0;
+			x=r;
+			y=c;
+			symbol='@';
 		}else{
-			Character(140,20,20,0,x,y,'@');
+			hp=140;
+			atk=20;
+			def=20;
+			gold=0;
+			x=r;
+			y=c;
+			symbol='@';
 		}
 	}
 
