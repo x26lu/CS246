@@ -64,6 +64,8 @@ int main(int argc, char *argv[])
 				}
 			}
 
+			std::cout << "Generating game..." << std::endl;
+
 			Floor floor(floorNum, filename);
 
 			//spawn floor and player
@@ -81,7 +83,7 @@ int main(int argc, char *argv[])
 			while (!reachStair && !endSession && !quit)
 			{
 				//messag display to the player
-				std::string msg = "Player character has spawned. ";
+				std::string msg = "";
 
 				//print screen
 				printScreen(&floor);
@@ -93,8 +95,9 @@ int main(int argc, char *argv[])
 				std::cout << "Action: " << msg << std::endl;
 
 				//ask for player's command until recongnize
-				bool correctCmd = true;
+				bool correctCmd = false;
 				do{
+					correctCmd = true;
 					std::cin >> cmd;
 					int currentX = player->getX();
 					int currentY = player->getY();
@@ -224,8 +227,8 @@ int main(int argc, char *argv[])
 					}
 				}while (!correctCmd);
 				// enemy's turn, if enemy can see player, attack, else move
-				for (int i = 0; i < 10; i++){
-					for (int j = 0; i < 25; j++){
+				for (int i = 0; i < 80; i++){
+					for (int j = 0; j < 25; j++){
 						char currentChar = floor.getCharAt(i, j);
 						if (currentChar == 'W' || currentChar == 'V' || currentChar == 'N' || currentChar == 'M' ||
 							currentChar == 'D' || currentChar == 'X' || currentChar == 'T'){

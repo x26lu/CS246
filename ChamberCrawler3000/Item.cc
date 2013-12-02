@@ -7,6 +7,8 @@
 	}
 	Item::Item(char sym,int x,int y){
 		symbol=sym;
+		this->x = x;
+		this->y = y;
 	}
 	char Item::getSymbol(){
 		return symbol;

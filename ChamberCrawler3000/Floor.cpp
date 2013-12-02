@@ -15,11 +15,11 @@ const char SymbolGold = 'G';
 const char SymbolPotion = 'P';
 const char SymbolSpace = ' '; 
 
-int Floor::getIndex(int x, int y){ return width * y + x; }
+int Floor::getIndex(int x, int y){ return (width * y + x); }
 
-int Floor::getX(int index){ return index % width; }
+int Floor::getX(int index){ return (index % width); }
 
-int Floor::getY(int index){ return index / width; }
+int Floor::getY(int index){ return (index / width); }
 
 void Floor::init(){
 	generatePotions();
@@ -71,7 +71,7 @@ void Floor::generatePotions(int potionNum){
 	for(int i = 0; i < potionNum; i++){
 		int tmp = getRand(6);
 		Potion *holder;
-		int index = spawn();
+		int index = spawn('P');
 		if (tmp == 0){holder = new Potion("RH", getX(index), getY(index));}
 		else if (tmp == 1){ holder = new Potion("BA", getX(index), getY(index)); }
 		else if (tmp == 2){ holder = new Potion("BD", getX(index), getY(index)); }
@@ -89,7 +89,7 @@ void Floor::generateGolds(int goldNum){
 	for (int i = 0; i < goldNum; i++){
 		int tmp = getRand(8);
 		Gold *holder;
-		int index = spawn();
+		int index = spawn('G');
 		if (tmp >= 0 && tmp <= 4){ holder = new Gold("normal", getX(index), getY(index)); }
 		else if (tmp >= 5 && tmp <= 6){ holder = new Gold("smallHorde", getX(index), getY(index)); }
 		else { holder = new Gold("dragonHorde", getX(index), getY(index)); }
@@ -107,17 +107,20 @@ void Floor::generateEnemies(int enemyNum){
 	for (int i = 0; i < 20; i++){
 		if (golds[i].getType() == "dragonHorde"){
 			int index = getUnoccupiedRadius(golds[i].getX(), golds[i].getY());
-			Enemy *tmpEnemy = new Enemy("dragon", getX(index), getY(index));
-			draw(tmpEnemy->getX(), tmpEnemy->getY(), tmpEnemy->getSymbol());
-			enemies[dragonCounter] = *tmpEnemy;
-			dragonCounter++;
+			//if we can't find a place to put dragon, simplily not putting one
+			if (index != -1){
+				Enemy *tmpEnemy = new Enemy("dragon", getX(index), getY(index));
+				draw(tmpEnemy->getX(), tmpEnemy->getY(), tmpEnemy->getSymbol());
+				enemies[dragonCounter] = *tmpEnemy;
+				dragonCounter++;
+			}
 		}
 	}
 
 	for (int i = dragonCounter; i < enemyNum; i++){
 		int tmp = getRand(18);
 		Enemy *holder;
-		int index = spawn();
+		int index = spawn('E');
 		if (tmp >= 0 && tmp <= 3){ holder = new Enemy("werewolf", getX(index), getY(index)); }
 		else if (tmp >= 4 && tmp <= 6){ holder = new Enemy("vampire", getX(index), getY(index)); }
 		else if (tmp >= 7 && tmp <= 11){ holder = new Enemy("goblin", getX(index), getY(index)); }
@@ -169,7 +172,7 @@ floorNum(nFloorNum), width(nWidth), height(nHeight)
 	int size5=1;
 	for(int x=39;x<=75;x++){	
 		for (int y = 3; y <= 12; y++){
-			if((!(x<=60&&y>=7))||(!(y<=4&&x>=62)))||(!(y<=5&&x>=70)))||(!(y<=6&&x>=73))){
+			if(!(x<=60&&y>=7)||!(y<=4&&x>=62)||!(y<=5&&x>=70)||!(y<=6&&x>=73)){
 				chamber5.resize(size5,getIndex(x,y));
 				size5++;
 			}
@@ -275,7 +278,7 @@ int Floor::spawn(char symbol){
 //return index of an unoccupied location within 1 radius, return -1 if not found
 int Floor::getUnoccupiedRadius(int x, int y){
 	int counter = 0;
-	int holder[8];
+	int holder[9];
 
 	for (int iX = x - 1; iX <= x + 1; iX++){
 		for (int iY = y - 1; iY <= y + 1; iY++){
@@ -287,7 +290,10 @@ int Floor::getUnoccupiedRadius(int x, int y){
 	}
 
 	if (counter == 0){ return -1; }
-	else { return holder[getRand(counter)]; }
+	else {
+		int i = getRand(counter);
+		return holder[i];
+	}
 }
 
 bool Floor::isSymbolVisiable(int x, int y, char target){

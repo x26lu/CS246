@@ -9,7 +9,7 @@ Potion::Potion():Item(){
 	wd=0;
 }
 
-Potion::Potion(std::string pot, int x, int y) :Item('P', 0, 0){
+Potion::Potion(std::string pot, int x, int y) :Item('P', x, y){
 	type=pot;
 	rh=0;
 	ba=0;
