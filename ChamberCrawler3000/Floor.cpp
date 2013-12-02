@@ -48,7 +48,7 @@ void Floor::readMap(std::string filename){
 	std::ifstream file;
 	file.open(filename.c_str());
 
-	file.read(map, sizeof map);
+	file.read(map, 2000);
 	if (file.eof())
 	{
 		// got the whole file...
@@ -79,6 +79,7 @@ void Floor::generatePotions(int potionNum){
 		else if (tmp == 3){ holder = new Potion("PH", getX(index), getY(index)); }
 		else if (tmp == 4){ holder = new Potion("WA", getX(index), getY(index)); }
 		else { holder = new Potion("WD", getX(index), getY(index)); }
+		draw(holder->getX(), holder->getY(), SymbolPotion);
 		potions[i] = *holder;
 	}
 } 
@@ -93,6 +94,7 @@ void Floor::generateGolds(int goldNum){
 		if (tmp >= 0 && tmp <= 4){ holder = new Gold("normal", getX(index), getY(index)); }
 		else if (tmp >= 5 && tmp <= 6){ holder = new Gold("smallHorde", getX(index), getY(index)); }
 		else { holder = new Gold("dragonHorde", getX(index), getY(index)); }
+		draw(holder->getX(), holder->getY(), SymbolGold);
 		golds[i] = *holder;
 	}
 }
@@ -103,10 +105,11 @@ void Floor::generateEnemies(int enemyNum){
 	int dragonCounter = 0;
 
 	//generate dragon according to if dragonHorde exists
-	for (int i = 0; i < sizeof(golds); i++){
+	for (int i = 0; i < 20; i++){
 		if (golds[i].getType() == "dragonHorde"){
 			int index = getUnoccupiedRadius(golds[i].getX(), golds[i].getY());
 			Enemy *tmpEnemy = new Enemy("dragon", getX(index), getY(index));
+			draw(tmpEnemy->getX(), tmpEnemy->getY(), tmpEnemy->getSymbol());
 			enemies[dragonCounter] = *tmpEnemy;
 			dragonCounter++;
 		}
@@ -122,6 +125,7 @@ void Floor::generateEnemies(int enemyNum){
 		else if (tmp >= 12 && tmp <= 13){ holder = new Enemy("troll", getX(index), getY(index)); }
 		else if (tmp >= 14 && tmp <= 15){ holder = new Enemy("phoenix", getX(index), getY(index)); }
 		else { holder = new Enemy("merchant", getX(index), getY(index)); }
+		draw(holder->getX(), holder->getY(), holder->getSymbol());
 		enemies[i] = *holder;
 	}
 }
@@ -133,7 +137,7 @@ void Floor::generateEnemies(int enemyNum){
 Floor::Floor(int nFloorNum, std::string filename, int nWidth, int nHeight) :
 floorNum(nFloorNum), width(nWidth), height(nHeight)
 {
-	chamber1 = new int[1]{ 248 };
+	chamber1 = new int[2]{ 248, 249 };
 	chamber2 = new int[2]{ 280, 281 };
 	chamber3 = new int[2]{ 924, 925 };
 	chamber4 = new int[2]{ 1607, 1608 };
@@ -200,11 +204,14 @@ void Floor::release(int x, int y){
 	draw(x, y, current);
 }
 
-void Floor::move(int oldX, int oldY, int newX, int newY){
-	//TODO: check if moveable
+std::string Floor::move(int oldX, int oldY, int newX, int newY, bool isPlayer){
+	if (!isMoveable(newX, newY, isPlayer)){
+		return "Target location is not moveable.";
+	}
 	char tmp = getCharAt(oldX, oldY);
 	draw(newX, newY, tmp);
 	release(oldX, oldY);
+	return "";
 }
 
 int Floor::spawn(char symbol){
@@ -224,7 +231,7 @@ int Floor::spawn(char symbol){
 	else if (chamber == 4){ chambers = chamber5; }
 
 	if (symbol == SymbolStair){ setStairChamber(chamber); }
-	int size = sizeof(chambers);
+	int size = 2;
 	do{
 		index = getRand(size);
 	} while (!isMoveable(getX(chambers[index]), getY(chambers[index]), false));
@@ -250,7 +257,7 @@ int Floor::getUnoccupiedRadius(int x, int y){
 }
 
 Enemy* Floor::getEnemy(int x, int y){
-	for (int i = 0; i < sizeof(enemies); i++){
+	for (int i = 0; i < 20; i++){
 		if (enemies[i].getX() == x && enemies[i].getY() == y){
 			return &enemies[i];
 		}
@@ -259,7 +266,7 @@ Enemy* Floor::getEnemy(int x, int y){
 }
 
 Gold* Floor::getGold(int x, int y){
-	for (int i = 0; i < sizeof(golds); i++){
+	for (int i = 0; i < 20; i++){
 		if (golds[i].getX() == x && golds[i].getY() == y){
 			return &golds[i];
 		}
@@ -268,7 +275,7 @@ Gold* Floor::getGold(int x, int y){
 }
 
 Potion* Floor::getPotion(int x, int y){
-	for (int i = 0; i < sizeof(potions); i++){
+	for (int i = 0; i < 10; i++){
 		if (potions[i].getX() == x && potions[i].getY() == y){
 			return &potions[i];
 		}

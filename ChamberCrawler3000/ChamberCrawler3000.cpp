@@ -20,6 +20,7 @@ int main(int argc, char *argv[])
 	std::string filename = "default.txt";
 	bool quit = false;
 	std::string cmd;
+	std::string msg;	//messag display to the player
 	while (!quit) {
 		bool endSession = false;
 		int floorNum = 1;
@@ -39,25 +40,26 @@ int main(int argc, char *argv[])
 			else if (cmd == "e"){ player = new Player("elves", 0, 0); }
 			else if (cmd == "o"){ player = new Player("orc", 0, 0); }
 			else {
-				if (cmd != "q"){ std::cout << "unsupported command" << std::endl; }
+				if (cmd != "q"){ msg = "unsupported command"; }
 				quit = true;
 				break;
 			}
 
 			if (argc != 3 && argc != 1){
-				std::cout << "unsupported command" << std::endl;
+				msg = "unsupported command";
 			}
 			else if (argc == 3){
 				if (argv[1] == "-i"){
 					filename = argv[2];
 				}
 				else {
-					std::cout << "unsupported command" << std::endl;
+					msg = "unsupported command";
 				}
 			}
 
 			Floor floor(floorNum, filename);
 
+			//spawn floor and player
 			if (filename == "default.txt"){
 				floor.init();
 				int tmp = floor.spawn('\\');
@@ -95,7 +97,7 @@ int main(int argc, char *argv[])
 						}
 					}
 					if(check==0){
-						std::cout << "No Potion Nearby" << std::endl;
+						msg = "No Potion Nearby";
 					}
 				}
 				else if (cmd.find("a ") != std::string::npos){
@@ -109,7 +111,7 @@ int main(int argc, char *argv[])
 						}
 					}
 					if(check==0){
-						std::cout << "No Enemy Nearby" << std::endl;
+						msg = "No Enemy Nearby";
 					}
 				}
 				else{
@@ -152,7 +154,7 @@ int main(int argc, char *argv[])
 							if(check==1){
 								totalGold += floor.getGold(targetX, targetY)->getValue();
 							}else{
-								std::cout << "Dragon is alive can not get Treasure" << std::endl;
+								msg = "Dragon is alive can not get Treasure";
 							}
 						}
 						totalGold += floor.getGold(targetX, targetY)->getValue();
@@ -161,7 +163,7 @@ int main(int argc, char *argv[])
 						reachStair = true;
 						floorNum++;
 					}
-					floor.move(currentX, currentY, targetX, targetY);
+					floor.move(currentX, currentY, targetX, targetY, true);
 					player->setX(targetX);
 					player->setY(targetY);
 				}
@@ -169,8 +171,6 @@ int main(int argc, char *argv[])
 				// using for loop to go through enemies
 				// if within radius of player, attack, else move
 				// if player.hp = 0, endSession = true
-				
-				
 			}
 			if (player->getRace() == "human"){
 				totalGold *= 1.5;
