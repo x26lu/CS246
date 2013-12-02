@@ -57,6 +57,14 @@ int main(int argc, char *argv[])
 			}
 
 			Floor floor(floorNum, filename);
+
+			if (filename == "default.txt"){
+				floor.init();
+				floor.spawn('\\');
+				int tmp = floor.spawn('@');
+				player->setX(floor.getX(tmp));
+				player->setY(floor.getY(tmp));
+			}
 			bool reachStair = false;
 			while (!reachStair && !endSession && !quit)
 			{

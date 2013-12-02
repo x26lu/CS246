@@ -26,8 +26,6 @@ void Floor::init(){
 	generatePotions();
 	generateGolds();
 	generateEnemies();
-	//spawn stair
-	//spawn player
 }
 
 int Floor::getRand(int range, int start){
@@ -35,12 +33,15 @@ int Floor::getRand(int range, int start){
 	return rand() % range + start;
 }
 
-bool Floor::isMoveable(int x, int y){
+bool Floor::isMoveable(int x, int y, bool isPlayer){
 	char tmp = map[getIndex(x, y)];
-	if (tmp == SymbolPassage || SymbolFloorTile || SymbolDoorway || SymbolGold){
-		return true;
+
+	if (tmp == SymbolFloorTile){ return true; }
+
+	if (isPlayer){
+		if (tmp == SymbolPassage || SymbolDoorway || SymbolGold){ return true; }
 	}
-	else return false;
+	return false;
 }
 
 void Floor::readMap(std::string filename){
@@ -132,16 +133,31 @@ void Floor::generateEnemies(int enemyNum){
 Floor::Floor(int nFloorNum, std::string filename, int nWidth, int nHeight) :
 floorNum(nFloorNum), width(nWidth), height(nHeight)
 {
+	int* chamber1[] = {};
+	int* chamber2[] = {};
+	int* chamber3[] = {};
+	int* chamber4[] = {};
+	int* chamber5[] = {};
+	chambers[0] = chamber1;
+	chambers[1] = chamber2;
+	chambers[2] = chamber3;
+	chambers[3] = chamber4;
+	chambers[4] = chamber5;
+
 	readMap(filename);
-	if (filename == "default.txt"){ init(); }
 }
 
 int Floor::getWidth(){
 	return width;
 }
-
 int Floor::getHeight(){
 	return height;
+}
+int Floor::getStairChamber(){
+	return stairChamber;
+}
+void Floor::setStairChamber(int num){
+	stairChamber = num;
 }
 
 char Floor::getCharAt(int x, int y){
@@ -197,27 +213,39 @@ void Floor::move(int oldX, int oldY, int newX, int newY){
 	release(oldX, oldY);
 }
 
-int Floor::spawn(){
-	//TODO: not implemented yet
-	return 0;
+int Floor::spawn(char symbol){
+	int chamber = -1;
+	int index = -1;
+	if (symbol == SymbolPlayer){
+		do{
+			chamber = getRand(5);
+		} while (chamber == getStairChamber());
+	}
+	else chamber = getRand(5);
+	if (symbol == SymbolStair){ setStairChamber(chamber); }
+	int size = sizeof(chambers[chamber]);
+	do{
+		index = getRand(size);
+	} while (!isMoveable(getX(chambers[chamber][index]), getY(chambers[chamber][index]), false));
+	return chambers[chamber][index];
 }
 
+//return index of an unoccupied location within 1 radius, return -1 if not found
 int Floor::getUnoccupiedRadius(int x, int y){
-	//get indexes of moveable locations with one radius
+	int counter = 0;
+	int holder[8];
+
 	for (int iX = x - 1; iX <= x + 1; iX++){
 		for (int iY = y - 1; iY <= y + 1; iY++){
-			if (getCharAt(iX, iY) == SymbolFloorTile){
-				//store index in an array
+			if (isMoveable(iX, iY)){
+				holder[counter] = getIndex(iX, iY);
+				counter++;
 			}
 		}
 	}
 
-	int sizeMoveable = 0;
-	//TODO£ºif size = 0, return
-
-	//randomly select one of them
-	int tmp = getRand(sizeMoveable);
-	return tmp;
+	if (counter == 0){ return -1; }
+	else { return holder[getRand(counter)]; }
 }
 
 Enemy* Floor::getEnemy(int x, int y){
