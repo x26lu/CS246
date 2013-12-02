@@ -133,17 +133,11 @@ void Floor::generateEnemies(int enemyNum){
 Floor::Floor(int nFloorNum, std::string filename, int nWidth, int nHeight) :
 floorNum(nFloorNum), width(nWidth), height(nHeight)
 {
-	int* chamber1[] = {};
-	int* chamber2[] = {};
-	int* chamber3[] = {};
-	int* chamber4[] = {};
-	int* chamber5[] = {};
-	chambers[0] = chamber1;
-	chambers[1] = chamber2;
-	chambers[2] = chamber3;
-	chambers[3] = chamber4;
-	chambers[4] = chamber5;
-
+	chamber1 = new int[5]{ 10, 11, 12, 13, 14 };
+	chamber2 = new int[5]{ 15, 16, 17, 18, 19 };
+	chamber3 = new int[2]{ 70, 71 };
+	chamber4 = new int[2]{ 170, 171 };
+	chamber5 = new int[2]{ 270, 271 };
 	readMap(filename);
 }
 
@@ -222,12 +216,19 @@ int Floor::spawn(char symbol){
 		} while (chamber == getStairChamber());
 	}
 	else chamber = getRand(5);
+	int* chambers = chamber1;
+	if (chamber == 0){ chambers = chamber1; }
+	else if(chamber == 1){ chambers = chamber2; }
+	else if (chamber == 2){ chambers = chamber3; }
+	else if (chamber == 3){ chambers = chamber4; }
+	else if (chamber == 4){ chambers = chamber5; }
+
 	if (symbol == SymbolStair){ setStairChamber(chamber); }
 	int size = sizeof(chambers[chamber]);
 	do{
 		index = getRand(size);
-	} while (!isMoveable(getX(chambers[chamber][index]), getY(chambers[chamber][index]), false));
-	return chambers[chamber][index];
+	} while (!isMoveable(getX(chambers[index]), getY(chambers[index]), false));
+	return chambers[index];
 }
 
 //return index of an unoccupied location within 1 radius, return -1 if not found

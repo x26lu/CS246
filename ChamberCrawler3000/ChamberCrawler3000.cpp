@@ -89,7 +89,7 @@ int main(int argc, char *argv[])
 					for(int r=currentX-1;r<=currentX+1;r++){
 						for(int c=currentY;c<=currentY+1;c++){
 							if(floor.getPotion(r,c)!=NULL){
-								player->usePotion(floor.getPotion(r,c));
+								player->usePotion(*floor.getPotion(r,c));
 								check=1;
 							}
 						}
@@ -103,7 +103,7 @@ int main(int argc, char *argv[])
 					for(int r=currentX-1;r<=currentX+1;r++){
 						for(int c=currentY;c<=currentY+1;c++){
 							if(floor.getEnemy(r,c)!=NULL){
-								floor.getEnemy(r,c)->defend(player);
+								floor.getEnemy(r,c)->defend(*player);
 								check=1;
 							}
 						}
@@ -172,11 +172,11 @@ int main(int argc, char *argv[])
 				
 				
 			}
+			if (player->getRace() == "human"){
+				totalGold *= 1.5;
+			}
+			std::cout << "Game End total score is " << totalGold << std::endl;
 		}
-		if(player.getRace()=="human"){
-			totalGold *=1.5;
-		}
-		std::cout << "Game End total score is " << totalGold<<std::endl;
 	}
 	return 0;
 }
