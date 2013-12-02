@@ -40,7 +40,7 @@ public:
 	void release(int x, int y);	//turn symbol at target location back to default
 	std::string move(int oldX, int oldY, int newX, int newY, bool isPlayer=false);	//move from old location to new location
 	int spawn(char symbol=' ');	//return a random generated location
-	int* getRadius(int x, int y);	//get indexes of available locations in 1 radius of current location
+	bool Floor::isSymbolVisiable(int x, int y, char target);
 	int getUnoccupiedRadius(int x, int y);		//get one random unoccupied location in 1 radius
 	Enemy* getEnemy(int x, int y);	//return the enemy obj at current location
 	Gold* getGold(int x, int y);

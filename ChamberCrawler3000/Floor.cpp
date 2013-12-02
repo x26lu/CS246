@@ -206,7 +206,7 @@ void Floor::release(int x, int y){
 
 std::string Floor::move(int oldX, int oldY, int newX, int newY, bool isPlayer){
 	if (!isMoveable(newX, newY, isPlayer)){
-		return "Target location is not moveable.";
+		return "Target location is not moveable";
 	}
 	char tmp = getCharAt(oldX, oldY);
 	draw(newX, newY, tmp);
@@ -254,6 +254,17 @@ int Floor::getUnoccupiedRadius(int x, int y){
 
 	if (counter == 0){ return -1; }
 	else { return holder[getRand(counter)]; }
+}
+
+bool Floor::isSymbolVisiable(int x, int y, char target){
+	for (int iX = x - 1; iX <= x + 1; iX++){
+		for (int iY = y - 1; iY <= y + 1; iY++){
+			if (getCharAt(iX, iY) == target){
+				return true;
+			}
+		}
+	}
+	return false;
 }
 
 Enemy* Floor::getEnemy(int x, int y){

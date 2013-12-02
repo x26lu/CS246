@@ -15,12 +15,19 @@ void printScreen(Floor *floor){
 	}
 }
 
+std::string getAttackMsg(Character *attacker, Character *defender){
+	std::string msg = NULL;
+	msg = msg + attacker->getSymbol() + "deals  " + std::to_string(attacker->getAtk()) + "  damage  to  "
+		+ defender->getSymbol() + "(" + std::to_string(defender->getHp()) + " HP).";
+	return msg;
+}
+
 int main(int argc, char *argv[])
 {
 	std::string filename = "default.txt";
 	bool quit = false;
 	std::string cmd;
-	std::string msg;	//messag display to the player
+
 	while (!quit) {
 		bool endSession = false;
 		int floorNum = 1;
@@ -40,20 +47,20 @@ int main(int argc, char *argv[])
 			else if (cmd == "e"){ player = new Player("elves", 0, 0); }
 			else if (cmd == "o"){ player = new Player("orc", 0, 0); }
 			else {
-				if (cmd != "q"){ msg = "unsupported command"; }
+				if (cmd != "q"){ std::cout << "unsupported command. " << std::endl; }
 				quit = true;
 				break;
 			}
 
 			if (argc != 3 && argc != 1){
-				msg = "unsupported command";
+				std::cout << "unsupported command. " << std::endl;
 			}
 			else if (argc == 3){
 				if (argv[1] == "-i"){
 					filename = argv[2];
 				}
 				else {
-					msg = "unsupported command";
+					std::cout << "unsupported command. " << std::endl;
 				}
 			}
 
@@ -72,7 +79,17 @@ int main(int argc, char *argv[])
 			bool reachStair = false;
 			while (!reachStair && !endSession && !quit)
 			{
+				//messag display to the player
+				std::string msg = "Player character has spawned. ";
+
+				//print screen
 				printScreen(&floor);
+				std::cout << std::endl << "Race: " << player->getRace() << " Gold: " << totalGold <<
+					"\t\t\tFloor: " << floorNum << std::endl;
+				std::cout << "HP: " << player->getHp() << std::endl;
+				std::cout << "Atk: " << player->getAtk() << std::endl;
+				std::cout << "Def: " << player->getDef() << std::endl;
+				std::cout << "Action: " << msg << std::endl;
 
 				std::cin >> cmd;
 				int currentX = player->getX();
@@ -97,7 +114,7 @@ int main(int argc, char *argv[])
 						}
 					}
 					if(check==0){
-						msg = "No Potion Nearby";
+						msg = msg + "No Potion Nearby. ";
 					}
 				}
 				else if (cmd.find("a ") != std::string::npos){
@@ -106,38 +123,56 @@ int main(int argc, char *argv[])
 						for(int c=currentY;c<=currentY+1;c++){
 							if(floor.getEnemy(r,c)!=NULL){
 								floor.getEnemy(r,c)->defend(*player);
+								msg = msg + getAttackMsg(player, floor.getEnemy(r, c));
 								check=1;
 							}
 						}
 					}
 					if(check==0){
-						msg = "No Enemy Nearby";
+						msg = msg + "No Enemy Nearby. ";
 					}
 				}
 				else{
 					int targetX = player->getX();
 					int targetY = player->getY();
 
-					if (cmd == "no"){ targetY -= 1; }
+					if (cmd == "no"){
+						msg = msg + "PC moves North. "; 
+						targetY -= 1;
+					}
 					else if (cmd == "ne"){
+						msg = msg + "PC moves NorthEase. ";
 						targetX += 1;
 						targetY -= 1;
 					}
 					else if (cmd == "nw"){
+						msg = msg + "PC moves NorthWest. ";
 						targetX -= 1;
 						targetY -= 1;
 					}
-					else if (cmd == "so"){ targetY += 1; }
+					else if (cmd == "so"){
+						msg = msg + "PC moves South. "; 
+						targetY += 1;
+					}
 					else if (cmd == "se"){
+						msg = msg + "PC moves SouthEast. ";
 						targetX += 1;
 						targetY += 1;
 					}
 					else if (cmd == "sw"){
+						msg = msg + "PC moves SouthWest. ";
 						targetX -= 1;
 						targetY += 1;
 					}
-					else if (cmd == "ea"){ targetX += 1; }
-					else if (cmd == "we"){ targetX -= 1; }
+					else if (cmd == "ea"){
+						msg = msg + "PC moves East. "; 
+						targetX += 1;
+					}
+					else if (cmd == "we"){
+						msg = msg + "PC moves West. "; 
+						targetX -= 1;
+					}
+					else { msg = msg + "unsupported command. "; }
 
 					//if player move onto a gold, get the gold
 					if (floor.getCharAt(targetX, targetY) == 'G'){
@@ -154,28 +189,62 @@ int main(int argc, char *argv[])
 							if(check==1){
 								totalGold += floor.getGold(targetX, targetY)->getValue();
 							}else{
-								msg = "Dragon is alive can not get Treasure";
+								msg = msg + "Dragon is alive can not get Treasure. ";
 							}
 						}
 						totalGold += floor.getGold(targetX, targetY)->getValue();
 					}
+					//if player moves onto a stair, go onto next floor
 					else if (floor.getCharAt(targetX, targetY) == '\\'){
 						reachStair = true;
 						floorNum++;
 					}
-					floor.move(currentX, currentY, targetX, targetY, true);
-					player->setX(targetX);
-					player->setY(targetY);
+					
+					std::string tmpMsg = floor.move(currentX, currentY, targetX, targetY, true);
+					if (tmpMsg != ""){ msg = tmpMsg; }
+					else{
+						player->setX(targetX);
+						player->setY(targetY);
+					}
+					//if player sees a potion, report it
+					if (floor.isSymbolVisiable(player->getX, player->getY, 'P')){
+						msg = msg + "Player sees a Potion. ";
+					}
+					if (floor.isSymbolVisiable(player->getX, player->getY, 'G')){
+						msg = msg + "Player sees a Gold. ";
+					}
 				}
-				// TODO: enemy's turn, generated one by one
-				// using for loop to go through enemies
-				// if within radius of player, attack, else move
-				// if player.hp = 0, endSession = true
+
+				// enemy's turn, if enemy can see player, attack, else move
+				for (int i = 0; i < 10; i++){
+					for (int j = 0; i < 25; j++){
+						char currentChar = floor.getCharAt(i, j);
+						if (currentChar == 'W' || currentChar == 'V' || currentChar == 'N' || currentChar == 'M' ||
+							currentChar == 'D' || currentChar == 'X' || currentChar == 'T'){
+							Enemy *e = floor.getEnemy(i, j);
+							if (e->getHp > 0){
+								if (floor.isSymbolVisiable(i, j, 'a')){
+									player->defend(*e);
+									msg = msg + getAttackMsg(e, player);
+								}
+								else{
+									int target = floor.getUnoccupiedRadius(i, j);
+									int targetX = floor.getX(target);
+									int targetY = floor.getY(target);
+									floor.move(i, j, targetX, targetY);
+									e->setX(targetX);
+									e->setY(targetY);
+								}
+							}
+						}
+					}
+				}
+				if (player->getHp <= 0){ endSession = true; }
 			}
 			if (player->getRace() == "human"){
 				totalGold *= 1.5;
 			}
-			std::cout << "Game End total score is " << totalGold << std::endl;
+			std::cout << "Game End. Total score is " << totalGold << std::endl;
 		}
 	}
 	return 0;
