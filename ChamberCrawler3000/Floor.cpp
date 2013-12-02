@@ -14,7 +14,6 @@ const char SymbolStair = '\\';
 const char SymbolGold = 'G';
 const char SymbolPotion = 'P';
 const char SymbolSpace = ' '; 
-const char SymbolWarewolf = NULL;
 
 int Floor::getIndex(int x, int y){ return width * y + x; }
 
@@ -137,7 +136,6 @@ void Floor::generateEnemies(int enemyNum){
 Floor::Floor(int nFloorNum, std::string filename, int nWidth, int nHeight) :
 floorNum(nFloorNum), width(nWidth), height(nHeight)
 {
-
 	int size1 = 1;
 	for(int x=3;x<=29;x++){	
 		for (int y = 3; y <= 7; y++){

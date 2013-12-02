@@ -77,6 +77,7 @@ int main(int argc, char *argv[])
 				player->setY(floor.getY(tmp));
 			}
 			bool reachStair = false;
+
 			while (!reachStair && !endSession && !quit)
 			{
 				//messag display to the player
@@ -84,137 +85,144 @@ int main(int argc, char *argv[])
 
 				//print screen
 				printScreen(&floor);
-				std::cout << std::endl << "Race: " << player->getRace() << " Gold: " << totalGold <<
+				std::cout << "Race: " << player->getRace() << " Gold: " << totalGold <<
 					"\t\t\tFloor: " << floorNum << std::endl;
 				std::cout << "HP: " << player->getHp() << std::endl;
 				std::cout << "Atk: " << player->getAtk() << std::endl;
 				std::cout << "Def: " << player->getDef() << std::endl;
 				std::cout << "Action: " << msg << std::endl;
 
-				std::cin >> cmd;
-				int currentX = player->getX();
-				int currentY = player->getY();
+				//ask for player's command until recongnize
+				bool correctCmd = true;
+				do{
+					std::cin >> cmd;
+					int currentX = player->getX();
+					int currentY = player->getY();
 
-				if (cmd == "q"){
-					quit = true;
-					break;
-				}
-				else if (cmd == "r"){
-					endSession = true;
-					break;
-				}
-				else if (cmd.find("u ") != std::string::npos){
-					int check=0;
-					for(int r=currentX-1;r<=currentX+1;r++){
-						for(int c=currentY;c<=currentY+1;c++){
-							if(floor.getPotion(r,c)!=NULL){
-								player->usePotion(*floor.getPotion(r,c));
-								check=1;
-							}
-						}
+					if (cmd == "q"){
+						quit = true;
+						break;
 					}
-					if(check==0){
-						msg = msg + "No Potion Nearby. ";
+					else if (cmd == "r"){
+						endSession = true;
+						break;
 					}
-				}
-				else if (cmd.find("a ") != std::string::npos){
-					int check=0;
-					for(int r=currentX-1;r<=currentX+1;r++){
-						for(int c=currentY;c<=currentY+1;c++){
-							if(floor.getEnemy(r,c)!=NULL){
-								floor.getEnemy(r,c)->defend(*player);
-								msg = msg + getAttackMsg(player, floor.getEnemy(r, c));
-								check=1;
-							}
-						}
-					}
-					if(check==0){
-						msg = msg + "No Enemy Nearby. ";
-					}
-				}
-				else{
-					int targetX = player->getX();
-					int targetY = player->getY();
-
-					if (cmd == "no"){
-						msg = msg + "PC moves North. "; 
-						targetY -= 1;
-					}
-					else if (cmd == "ne"){
-						msg = msg + "PC moves NorthEase. ";
-						targetX += 1;
-						targetY -= 1;
-					}
-					else if (cmd == "nw"){
-						msg = msg + "PC moves NorthWest. ";
-						targetX -= 1;
-						targetY -= 1;
-					}
-					else if (cmd == "so"){
-						msg = msg + "PC moves South. "; 
-						targetY += 1;
-					}
-					else if (cmd == "se"){
-						msg = msg + "PC moves SouthEast. ";
-						targetX += 1;
-						targetY += 1;
-					}
-					else if (cmd == "sw"){
-						msg = msg + "PC moves SouthWest. ";
-						targetX -= 1;
-						targetY += 1;
-					}
-					else if (cmd == "ea"){
-						msg = msg + "PC moves East. "; 
-						targetX += 1;
-					}
-					else if (cmd == "we"){
-						msg = msg + "PC moves West. "; 
-						targetX -= 1;
-					}
-					else { msg = msg + "unsupported command. "; }
-
-					//if player move onto a gold, get the gold
-					if (floor.getCharAt(targetX, targetY) == 'G'){
-						if (floor.getGold(targetX, targetY)->getType() == "dragonHorde"){
-							//check if dragon is killed
-							int check=1;
-							for(int r=targetX-1;r<=targetX+1;r++){
-								for(int c=targetY;c<=targetY+1;c++){
-									if(floor.getEnemy(r,c)->getRace()=="dragon"){
-										check=0;
-									}
+					else if (cmd.find("u ") != std::string::npos){
+						int check = 0;
+						for (int r = currentX - 1; r <= currentX + 1; r++){
+							for (int c = currentY; c <= currentY + 1; c++){
+								if (floor.getPotion(r, c) != NULL){
+									player->usePotion(*floor.getPotion(r, c));
+									check = 1;
 								}
 							}
-							if(check==1){
-								totalGold += floor.getGold(targetX, targetY)->getValue();
-							}else{
-								msg = msg + "Dragon is alive can not get Treasure. ";
+						}
+						if (check == 0){
+							msg = msg + "No Potion Nearby. ";
+						}
+					}
+					else if (cmd.find("a ") != std::string::npos){
+						int check = 0;
+						for (int r = currentX - 1; r <= currentX + 1; r++){
+							for (int c = currentY; c <= currentY + 1; c++){
+								if (floor.getEnemy(r, c) != NULL){
+									floor.getEnemy(r, c)->defend(*player);
+									msg = msg + getAttackMsg(player, floor.getEnemy(r, c));
+									check = 1;
+								}
 							}
 						}
-						totalGold += floor.getGold(targetX, targetY)->getValue();
+						if (check == 0){
+							msg = msg + "No Enemy Nearby. ";
+						}
 					}
-					//if player moves onto a stair, go onto next floor
-					else if (floor.getCharAt(targetX, targetY) == '\\'){
-						reachStair = true;
-						floorNum++;
-					}
-					
-					std::string tmpMsg = floor.move(currentX, currentY, targetX, targetY, true);
-					if (tmpMsg != ""){ msg = tmpMsg; }
-					else{
-						player->setX(targetX);
-						player->setY(targetY);
-					}
-					//if player sees a potion, report it
-					if (floor.isSymbolVisiable(player->getX(), player->getY(), 'P')){
-						msg = msg + "Player sees a Potion. ";
-					}
-					if (floor.isSymbolVisiable(player->getX(), player->getY(), 'G')){
-						msg = msg + "Player sees a Gold. ";
-					}
-				}
+					else if (cmd == "no" || cmd == "ne" || cmd == "nw" || cmd == "se" || cmd == "so" || cmd == "sw"
+						|| cmd == "ea" || cmd == "we"){
+						int targetX = player->getX();
+						int targetY = player->getY();
 
+						if (cmd == "no"){
+							msg = msg + "PC moves North. ";
+							targetY -= 1;
+						}
+						else if (cmd == "ne"){
+							msg = msg + "PC moves NorthEase. ";
+							targetX += 1;
+							targetY -= 1;
+						}
+						else if (cmd == "nw"){
+							msg = msg + "PC moves NorthWest. ";
+							targetX -= 1;
+							targetY -= 1;
+						}
+						else if (cmd == "so"){
+							msg = msg + "PC moves South. ";
+							targetY += 1;
+						}
+						else if (cmd == "se"){
+							msg = msg + "PC moves SouthEast. ";
+							targetX += 1;
+							targetY += 1;
+						}
+						else if (cmd == "sw"){
+							msg = msg + "PC moves SouthWest. ";
+							targetX -= 1;
+							targetY += 1;
+						}
+						else if (cmd == "ea"){
+							msg = msg + "PC moves East. ";
+							targetX += 1;
+						}
+						else if (cmd == "we"){
+							msg = msg + "PC moves West. ";
+							targetX -= 1;
+						}
+						//if player move onto a gold, get the gold
+						if (floor.getCharAt(targetX, targetY) == 'G'){
+							if (floor.getGold(targetX, targetY)->getType() == "dragonHorde"){
+								//check if dragon is killed
+								int check = 1;
+								for (int r = targetX - 1; r <= targetX + 1; r++){
+									for (int c = targetY; c <= targetY + 1; c++){
+										if (floor.getEnemy(r, c)->getRace() == "dragon"){
+											check = 0;
+										}
+									}
+								}
+								if (check == 1){
+									totalGold += floor.getGold(targetX, targetY)->getValue();
+								}
+								else{
+									msg = msg + "Dragon is alive can not get Treasure. ";
+								}
+							}
+							totalGold += floor.getGold(targetX, targetY)->getValue();
+						}
+						//if player moves onto a stair, go onto next floor
+						else if (floor.getCharAt(targetX, targetY) == '\\'){
+							reachStair = true;
+							floorNum++;
+						}
+
+						std::string tmpMsg = floor.move(currentX, currentY, targetX, targetY, true);
+						if (tmpMsg != ""){ msg = tmpMsg; }
+						else{
+							player->setX(targetX);
+							player->setY(targetY);
+						}
+						//if player sees a potion, report it
+						if (floor.isSymbolVisiable(player->getX(), player->getY(), 'P')){
+							msg = msg + "Player sees a Potion. ";
+						}
+						if (floor.isSymbolVisiable(player->getX(), player->getY(), 'G')){
+							msg = msg + "Player sees a Gold. ";
+						}
+					}
+					else {
+						std::cout << "unsupported command. " << std::endl;
+						correctCmd = false;
+					}
+				}while (!correctCmd);
 				// enemy's turn, if enemy can see player, attack, else move
 				for (int i = 0; i < 10; i++){
 					for (int j = 0; i < 25; j++){
