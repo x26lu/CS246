@@ -245,10 +245,12 @@ std::string Floor::move(int oldX, int oldY, int newX, int newY, bool isPlayer){
 	if (!isMoveable(newX, newY, isPlayer)){
 		return "Target location is not moveable";
 	}
-	char tmp = getCharAt(oldX, oldY);
-	draw(newX, newY, tmp);
-	release(oldX, oldY);
-	return "";
+	else{
+		char tmp = getCharAt(oldX, oldY);
+		draw(newX, newY, tmp);
+		release(oldX, oldY);
+		return "";
+	}
 }
 
 int Floor::spawn(char symbol){

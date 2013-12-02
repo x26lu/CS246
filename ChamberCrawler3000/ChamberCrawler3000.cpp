@@ -80,19 +80,18 @@ int main(int argc, char *argv[])
 			}
 			bool reachStair = false;
 
+			printScreen(&floor);
+			std::cout << "Race: " << player->getRace() << " Gold: " << totalGold <<
+				"\t\t\tFloor: " << floorNum << std::endl;
+			std::cout << "HP: " << player->getHp() << std::endl;
+			std::cout << "Atk: " << player->getAtk() << std::endl;
+			std::cout << "Def: " << player->getDef() << std::endl;
+			std::cout << "Action: " << "Player character has spawned." << std::endl;
+
 			while (!reachStair && !endSession && !quit)
 			{
 				//messag display to the player
 				std::string msg = "";
-
-				//print screen
-				printScreen(&floor);
-				std::cout << "Race: " << player->getRace() << " Gold: " << totalGold <<
-					"\t\t\tFloor: " << floorNum << std::endl;
-				std::cout << "HP: " << player->getHp() << std::endl;
-				std::cout << "Atk: " << player->getAtk() << std::endl;
-				std::cout << "Def: " << player->getDef() << std::endl;
-				std::cout << "Action: " << msg << std::endl;
 
 				//ask for player's command until recongnize
 				bool correctCmd = false;
@@ -251,6 +250,16 @@ int main(int argc, char *argv[])
 					}
 				}
 				if (player->getHp() <= 0){ endSession = true; }
+
+				//print screen
+				printScreen(&floor);
+				std::cout << "Race: " << player->getRace() << " Gold: " << totalGold <<
+					"\t\t\tFloor: " << floorNum << std::endl;
+				std::cout << "HP: " << player->getHp() << std::endl;
+				std::cout << "Atk: " << player->getAtk() << std::endl;
+				std::cout << "Def: " << player->getDef() << std::endl;
+				std::cout << "Action: " << msg << std::endl;
+
 			}
 			if (player->getRace() == "human"){
 				totalGold *= 1.5;
