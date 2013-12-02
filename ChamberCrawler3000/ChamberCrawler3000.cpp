@@ -12,7 +12,6 @@ void printScreen(Floor *floor){
 		for (int j = 0; j < width; j++){
 			std::cout << floor->getCharAt(j, i);
 		}
-		std::cout << std::endl;
 	}
 }
 

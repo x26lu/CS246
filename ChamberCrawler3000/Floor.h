@@ -7,7 +7,7 @@ class Floor
 	int floorNum;
 	int width;
 	int height;
-	char map[1975];	//stores the map, obj.index=obj.y*width+obj.x
+	char map[2000];	//stores the map, obj.index=obj.y*width+obj.x
 	Enemy* enemies;
 	Potion* potions;
 	Gold* golds;
@@ -24,7 +24,7 @@ class Floor
 	void generateEnemies(int enemyNum=20);	//generate 20 random enemies (dragon according to golds)
 	//a map of chamberNum with index
 public:
-	Floor(int nFloorNum, std::string filename, int nWidth=79, int nHeight=25);
+	Floor(int nFloorNum, std::string filename, int nWidth=80, int nHeight=25);
 	int getWidth();
 	int getHeight();
 	char getCharAt(int x, int y);	//return the symbol at (x,y)

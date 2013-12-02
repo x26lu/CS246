@@ -8,8 +8,8 @@ class Enemy : public Character{
 
 	protected:	
 		std::string race;
+		int hostile;
 	public:
-	static int hostile;
 	Enemy();
 	Enemy(std::string races,int x ,int y);
 	std::string getRace();

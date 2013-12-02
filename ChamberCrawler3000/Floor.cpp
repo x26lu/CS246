@@ -52,7 +52,6 @@ void Floor::readMap(std::string filename){
 	{
 		// got the whole file...
 		size_t bytes_really_read = file.gcount();
-
 	}
 	else if (file.fail())
 	{
@@ -250,7 +249,6 @@ Potion* Floor::getPotion(int x, int y){
 
 Floor::~Floor()
 {
-	delete[] map;
 	delete[] potions;
 	delete[] golds;
 	delete[] enemies;
