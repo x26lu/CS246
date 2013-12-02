@@ -138,30 +138,30 @@ Floor::Floor(int nFloorNum, std::string filename, int nWidth, int nHeight) :
 floorNum(nFloorNum), width(nWidth), height(nHeight)
 {
 
-	int size1=1
+	int size1 = 1;
 	for(int x=3;x<=29;x++){	
-		for(int y=3;y<=7,y++){
+		for (int y = 3; y <= 7; y++){
 			chamber1.resize(size1,getIndex(x,y));
 			size1++;
 		}
 	}
 	int size2=1;
 	for(int x=3;x<=23;x++){	
-		for(int y=15;y<=21,y++){
+		for (int y = 15; y <= 21; y++){
 			chamber2.resize(size2,getIndex(x,y));
 			size2++;
 		}
 	}
 	int size3=1;
 	for(int x=38;x<=49;x++){	
-		for(int y=10;y<=12,y++){
+		for (int y = 10; y <= 12; y++){
 			chamber3.resize(size3,getIndex(x,y));
 			size3++;
 		}
 	}
 	int size4=1;
 	for(int x=37;x<=75;x++){	
-		for(int y=16;y<=21,y++){
+		for (int y = 16; y <= 21; y++){
 			if(x<=65&&y)
 			chamber4.resize(size4,getIndex(x,y));
 			size4++;
