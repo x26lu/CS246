@@ -10,11 +10,11 @@
 		defmodify=0;
 	
 		if(race=="orc"){
-
+			Character(180,30,25,0,x,y,'@');
 		}else if(race=="dwarf"){
-	
+			Character(100,20,30,0,x,y,'@');
 		}else if (race=="elves"){
-	
+			Character(140,30,10,0,x,y,'@');
 		}else{
 			Character(140,20,20,0,x,y,'@');
 		}
