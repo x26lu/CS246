@@ -231,6 +231,7 @@ void Floor::release(int x, int y){
 	else if (left == SymbolFloorTile){
 		if (right == SymbolFloorTile || right == SymbolVerticalWall){ current = SymbolFloorTile; }
 		else if (right == SymbolPassage){ current = SymbolDoorway; }
+		else{ current = SymbolFloorTile; }
 	}
 	else if (left == SymbolPassage){
 		if (right == SymbolPassage || right == SymbolSpace){ current = SymbolPassage; }

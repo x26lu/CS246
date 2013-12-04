@@ -3,8 +3,7 @@
 
 
 	Player::Player():Character(){}
-	Player::Player(std::string rac, int r, int c) : Character(140, 20, 20, 0, r, c, '@'){
-		race=rac;
+	Player::Player(std::string rac, int r, int c) : Character(rac, 140, 20, 20, 0, r, c, '@'){
 		floor=1;
 		atkmodify=0;
 		defmodify=0;
@@ -51,7 +50,6 @@
 		def-=defmodify;
 		defmodify=0;
 	}
-	std::string Player::getRace(){return race;}
 	void Player::usePotion(Potion pot){
 		if(pot.getType()=="RH"){
 			hp+=10;

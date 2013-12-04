@@ -10,7 +10,8 @@
 		y=0;
 		symbol='0';
 	}
-	Character::Character(int h, int a, int d, int g, int r,int c,char sym){
+	Character::Character(std::string races, int h, int a, int d, int g, int r, int c, char sym){
+		race = races;
 		hp=h;
 		atk=a;
 		def=d;
@@ -19,6 +20,8 @@
 		y=c;
 		symbol=sym;
 	}
+	void Character::setRace(std::string races){ race = races; }
+	std::string Character::getRace(){return race; }
 	void Character::setX(int r){x=r;}
 	void Character::setY(int c){y=c;}
 	int Character::getX(){return x;}

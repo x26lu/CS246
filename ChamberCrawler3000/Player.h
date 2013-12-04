@@ -7,7 +7,6 @@
 
 class Player: public Character{
 	protected:
-	std::string race;
 	int floor;
 	int maxhp;
 	int atkmodify;
@@ -15,7 +14,6 @@ class Player: public Character{
 	public:
 	Player();
 	Player(std::string rac,int x , int y);
-	std::string getRace();
 	void nextFloor();
 	void usePotion(Potion pot);
 };

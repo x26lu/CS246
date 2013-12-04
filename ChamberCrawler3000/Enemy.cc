@@ -3,8 +3,7 @@
 
 	Enemy::Enemy():Character(){	
 	}
-	Enemy::Enemy(std::string races, int r, int c) : Character(120, 30, 5, 1, x, y, 'W'){
-		race = races;
+	Enemy::Enemy(std::string races, int r, int c) : Character(races, 120, 30, 5, 1, x, y, 'W'){
 		if(races=="vampire"){
 			hp=50;
 			atk=25;
@@ -65,9 +64,6 @@
 			y=c;
 			symbol='T';
 		}
-	}
-	std::string Enemy::getRace(){
-		return race;
 	}
 	void Enemy::beHostile(){
 		hostile=1;

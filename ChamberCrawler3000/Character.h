@@ -5,6 +5,7 @@
 
 class Character{
 	protected:
+	std::string race;
 	int hp;
 	int atk;
 	int def;
@@ -14,7 +15,9 @@ class Character{
 	char symbol;
 	public:
 	Character();
-	Character(int h, int a, int d, int g, int r,int c,char sym);
+	Character(std::string race, int h, int a, int d, int g, int r,int c,char sym);
+	void setRace(std::string races);
+	std::string getRace();
 	void setX(int r);
 	void setY(int c);
 	int getX();
