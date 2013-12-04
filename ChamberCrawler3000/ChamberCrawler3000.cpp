@@ -2,7 +2,7 @@
 //
 
 #include <iostream>
-#include <cstdlib>
+#include <sstream>
 #include "Floor.h"
 #include "Player.h"
 
@@ -18,13 +18,13 @@ void printScreen(Floor *floor){
 
 std::string getAttackMsg(Character *attacker, Character *defender){
 	std::string msg = "";
-	int i, j;
-	char buffer[3];
-	char buffer2[3];
-	itoa(i, buffer, attacker->getAtk());
-	itoa(j, buffer2, defender->getHp());
-	msg = msg + attacker->getSymbol() + "deals  " + buffer + "  damage  to  "
-		+ defender->getSymbol() + "(" + buffer2 + " HP).";
+	std::stringstream ss;
+	ss << attacker->getAtk();
+	std::string str1 = ss.str();
+	ss << defender->getHp();
+	std::string str2 = ss.str();
+	msg = msg + attacker->getSymbol() + "deals  " + str1 + "  damage  to  "
+		+ defender->getSymbol() + "(" + str2 + " HP).";
 	return msg;
 }
 
