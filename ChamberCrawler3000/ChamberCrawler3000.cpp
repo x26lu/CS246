@@ -2,6 +2,7 @@
 //
 
 #include <iostream>
+#include <cstdlib>
 #include "Floor.h"
 #include "Player.h"
 
@@ -16,9 +17,14 @@ void printScreen(Floor *floor){
 }
 
 std::string getAttackMsg(Character *attacker, Character *defender){
-	std::string msg = NULL;
-	msg = msg + attacker->getSymbol() + "deals  " + std::to_string(attacker->getAtk()) + "  damage  to  "
-		+ defender->getSymbol() + "(" + std::to_string(defender->getHp()) + " HP).";
+	std::string msg = "";
+	int i, j;
+	char buffer[3];
+	char buffer2[3];
+	itoa(i, buffer, attacker->getAtk());
+	itoa(j, buffer2, defender->getHp());
+	msg = msg + attacker->getSymbol() + "deals  " + buffer + "  damage  to  "
+		+ defender->getSymbol() + "(" + buffer2 + " HP).";
 	return msg;
 }
 
@@ -29,10 +35,14 @@ int main(int argc, char *argv[])
 	std::string cmd;
 
 	while (!quit) {
+		filename = "default.txt";
+		quit = false;
 		bool endSession = false;
 		int floorNum = 1;
 		while (!endSession && floorNum <= 8)
 		{
+			endSession = false;
+			floorNum = 1;
 			Player *player;
 			float totalGold = 0.0;
 			std::cout << "Please select your race, or enter 'q' to quit: " << std::endl;
@@ -80,19 +90,18 @@ int main(int argc, char *argv[])
 			}
 			bool reachStair = false;
 
+			printScreen(&floor);
+			std::cout << "Race: " << player->getRace() << " Gold: " << totalGold <<
+				"\t\t\tFloor: " << floorNum << std::endl;
+			std::cout << "HP: " << player->getHp() << std::endl;
+			std::cout << "Atk: " << player->getAtk() << std::endl;
+			std::cout << "Def: " << player->getDef() << std::endl;
+			std::cout << "Action: " << "Player character has spawned." << std::endl;
+
 			while (!reachStair && !endSession && !quit)
 			{
 				//messag display to the player
 				std::string msg = "";
-
-				//print screen
-				printScreen(&floor);
-				std::cout << "Race: " << player->getRace() << " Gold: " << totalGold <<
-					"\t\t\tFloor: " << floorNum << std::endl;
-				std::cout << "HP: " << player->getHp() << std::endl;
-				std::cout << "Atk: " << player->getAtk() << std::endl;
-				std::cout << "Def: " << player->getDef() << std::endl;
-				std::cout << "Action: " << msg << std::endl;
 
 				//ask for player's command until recongnize
 				bool correctCmd = false;
@@ -233,24 +242,39 @@ int main(int argc, char *argv[])
 						if (currentChar == 'W' || currentChar == 'V' || currentChar == 'N' || currentChar == 'M' ||
 							currentChar == 'D' || currentChar == 'X' || currentChar == 'T'){
 							Enemy *e = floor.getEnemy(i, j);
-							if (e->getHp() > 0){
-								if (floor.isSymbolVisiable(i, j, 'a')){
-									player->defend(*e);
-									msg = msg + getAttackMsg(e, player);
-								}
-								else{
-									int target = floor.getUnoccupiedRadius(i, j);
-									int targetX = floor.getX(target);
-									int targetY = floor.getY(target);
-									floor.move(i, j, targetX, targetY);
-									e->setX(targetX);
-									e->setY(targetY);
+							//if not the case enemy already moved
+							if (e != NULL){
+								if (e->getHp() > 0){
+									if (floor.isSymbolVisiable(i, j, '@')){
+										player->defend(*e);
+										msg = msg + getAttackMsg(e, player);
+									}
+									else{
+										int target = floor.getUnoccupiedRadius(i, j);
+										int targetX = floor.getX(target);
+										int targetY = floor.getY(target);
+										std::string m = floor.move(i, j, targetX, targetY);
+										if (m == ""){
+											e->setX(targetX);
+											e->setY(targetY);
+										}
+									}
 								}
 							}
 						}
 					}
 				}
 				if (player->getHp() <= 0){ endSession = true; }
+
+				//print screen
+				printScreen(&floor);
+				std::cout << "Race: " << player->getRace() << " Gold: " << totalGold <<
+					"\t\t\tFloor: " << floorNum << std::endl;
+				std::cout << "HP: " << player->getHp() << std::endl;
+				std::cout << "Atk: " << player->getAtk() << std::endl;
+				std::cout << "Def: " << player->getDef() << std::endl;
+				std::cout << "Action: " << msg << std::endl;
+
 			}
 			if (player->getRace() == "human"){
 				totalGold *= 1.5;

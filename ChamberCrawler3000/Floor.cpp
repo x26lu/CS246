@@ -230,7 +230,7 @@ void Floor::release(int x, int y){
 	}
 	else if (left == SymbolFloorTile){
 		if (right == SymbolFloorTile || right == SymbolVerticalWall){ current = SymbolFloorTile; }
-		else { current = SymbolDoorway; }
+		else if (right == SymbolPassage){ current = SymbolDoorway; }
 	}
 	else if (left == SymbolPassage){
 		if (right == SymbolPassage || right == SymbolSpace){ current = SymbolPassage; }
@@ -245,10 +245,12 @@ std::string Floor::move(int oldX, int oldY, int newX, int newY, bool isPlayer){
 	if (!isMoveable(newX, newY, isPlayer)){
 		return "Target location is not moveable";
 	}
-	char tmp = getCharAt(oldX, oldY);
-	draw(newX, newY, tmp);
-	release(oldX, oldY);
-	return "";
+	else{
+		char tmp = getCharAt(oldX, oldY);
+		draw(newX, newY, tmp);
+		release(oldX, oldY);
+		return "";
+	}
 }
 
 int Floor::spawn(char symbol){
