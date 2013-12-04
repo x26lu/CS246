@@ -16,7 +16,7 @@ void printScreen(Floor *floor){
 }
 
 std::string getAttackMsg(Character *attacker, Character *defender){
-	std::string msg = NULL;
+	std::string msg = "";
 	msg = msg + attacker->getSymbol() + "deals  " + std::to_string(attacker->getAtk()) + "  damage  to  "
 		+ defender->getSymbol() + "(" + std::to_string(defender->getHp()) + " HP).";
 	return msg;
@@ -236,19 +236,22 @@ int main(int argc, char *argv[])
 						if (currentChar == 'W' || currentChar == 'V' || currentChar == 'N' || currentChar == 'M' ||
 							currentChar == 'D' || currentChar == 'X' || currentChar == 'T'){
 							Enemy *e = floor.getEnemy(i, j);
-							if (e->getHp() > 0){
-								if (floor.isSymbolVisiable(i, j, '@')){
-									player->defend(*e);
-									msg = msg + getAttackMsg(e, player);
-								}
-								else{
-									int target = floor.getUnoccupiedRadius(i, j);
-									int targetX = floor.getX(target);
-									int targetY = floor.getY(target);
-									std::string m = floor.move(i, j, targetX, targetY);
-									if (m != ""){
-										e->setX(targetX);
-										e->setY(targetY);
+							//if not the case enemy already moved
+							if (e != NULL){
+								if (e->getHp() > 0){
+									if (floor.isSymbolVisiable(i, j, '@')){
+										player->defend(*e);
+										msg = msg + getAttackMsg(e, player);
+									}
+									else{
+										int target = floor.getUnoccupiedRadius(i, j);
+										int targetX = floor.getX(target);
+										int targetY = floor.getY(target);
+										std::string m = floor.move(i, j, targetX, targetY);
+										if (m == ""){
+											e->setX(targetX);
+											e->setY(targetY);
+										}
 									}
 								}
 							}

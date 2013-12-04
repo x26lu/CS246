@@ -3,12 +3,12 @@
 
 
 	Player::Player():Character(){}
-	Player::Player(std::string rac,int r, int c){
+	Player::Player(std::string rac, int r, int c) : Character(140, 20, 20, 0, r, c, '@'){
 		race=rac;
 		floor=1;
 		atkmodify=0;
 		defmodify=0;
-	
+
 		if(race=="orc"){
 			hp=180;
 			atk=30;

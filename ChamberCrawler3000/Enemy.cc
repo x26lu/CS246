@@ -3,7 +3,8 @@
 
 	Enemy::Enemy():Character(){	
 	}
-	Enemy::Enemy(std::string races,int r ,int c){
+	Enemy::Enemy(std::string races, int r, int c) : Character(120, 30, 5, 1, x, y, 'W'){
+		race = races;
 		if(races=="vampire"){
 			hp=50;
 			atk=25;
@@ -20,7 +21,6 @@
 			x=r;
 			y=c;
 			symbol='W';
-			Character(120,30,5,1,x,y,'W');
 		}else if(races=="dragon"){
 			hp=150;
 			atk=20;
@@ -29,7 +29,6 @@
 			x=r;
 			y=c;
 			symbol='D';
-			Character(150,20,20,0,x,y,'D');
 		}else if(races=="goblin"){
 			hp=70;
 			atk=5;
@@ -65,7 +64,6 @@
 			x=r;
 			y=c;
 			symbol='T';
-			
 		}
 	}
 	std::string Enemy::getRace(){
