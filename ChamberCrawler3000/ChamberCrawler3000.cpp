@@ -21,8 +21,9 @@ std::string getAttackMsg(Character *attacker, Character *defender){
 	std::stringstream ss;
 	ss << attacker->getAtk();
 	std::string str1 = ss.str();
-	ss << defender->getHp();
-	std::string str2 = ss.str();
+	std::stringstream ss1;
+	ss1 << defender->getHp();
+	std::string str2 = ss1.str();
 	msg = msg + attacker->getRace() + " deals  " + str1 + "  damage  to  "
 		+ defender->getRace() + "(" + str2 + " HP).";
 	return msg;
@@ -191,6 +192,7 @@ int main(int argc, char *argv[])
 						}
 						//if player move onto a gold, get the gold
 						if (floor.getCharAt(targetX, targetY) == 'G'){
+							msg = msg + "PC gets a gold. ";
 							if (floor.getGold(targetX, targetY)->getType() == "dragonHorde"){
 								//check if dragon is killed
 								int check = 1;
