@@ -23,7 +23,7 @@ std::string getAttackMsg(Character *attacker, Character *defender){
 	std::string str1 = ss.str();
 	ss << defender->getHp();
 	std::string str2 = ss.str();
-	msg = msg + attacker->getRace() + "deals  " + str1 + "  damage  to  "
+	msg = msg + attacker->getRace() + " deals  " + str1 + "  damage  to  "
 		+ defender->getRace() + "(" + str2 + " HP).";
 	return msg;
 }
