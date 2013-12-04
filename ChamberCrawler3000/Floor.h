@@ -24,7 +24,7 @@ class Floor
 	std::vector<int> chamber3;
 	std::vector<int> chamber4;
 	std::vector<int> chamber5;
-	int stairChamber = -1;
+	int stairChamber;
 public:
 	Floor(int nFloorNum, std::string filename, int nWidth=80, int nHeight=25);
 	void init();	//init at the beginning of floor
@@ -40,7 +40,7 @@ public:
 	void release(int x, int y);	//turn symbol at target location back to default
 	std::string move(int oldX, int oldY, int newX, int newY, bool isPlayer=false);	//move from old location to new location
 	int spawn(char symbol=' ');	//return a random generated location
-	bool Floor::isSymbolVisiable(int x, int y, char target);
+	bool isSymbolVisiable(int x, int y, char target);
 	int getUnoccupiedRadius(int x, int y);		//get one random unoccupied location in 1 radius
 	Enemy* getEnemy(int x, int y);	//return the enemy obj at current location
 	Gold* getGold(int x, int y);
